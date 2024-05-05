@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="GPX1" company="" webLink="http://" view-date="2024-05-06" view-index="0" gantt-divider-location="351" resource-divider-location="300" version="3.3.3307" locale="de_DE">
+    <description/>
+    <view zooming-state="default:4" id="gantt-chart">
+        <field id="tpd3" name="Vorgang" width="200" order="0"/>
+        <field id="tpd4" name="Anfang" width="75" order="1"/>
+        <field id="tpd5" name="Ende" width="75" order="2"/>
+        <field id="tpd15" name="Notizen" width="20" order="3"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Ressource" width="210" order="0"/>
+        <field id="1" name="Rolle" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="9" uid="9ec4a2790592476f990903b110e90f0c" name="Analyse" meeting="false" start="2024-05-06" duration="2" complete="0" expand="true">
+            <task id="0" uid="efa23f6db76c491a8b06846cdc4b2565" name="Kudengespräch" meeting="false" start="2024-05-06" duration="1" complete="0" expand="true">
+                <depend id="1" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="1" uid="56069e14398845dcb5d9713fa3331f8c" name="Lastenheft" meeting="false" start="2024-05-07" duration="1" complete="0" expand="true">
+                <depend id="2" type="2" difference="0" hardness="Strong"/>
+            </task>
+        </task>
+        <task id="10" uid="eff353fd3ee34766886b7fdc976cf28a" name="Design" meeting="false" start="2024-05-08" duration="13" complete="0" expand="true">
+            <task id="2" uid="9b772645f8fe4e7fa5a02662e5b8a14c" name="Pflichtenheft" meeting="false" start="2024-05-08" duration="3" complete="0" expand="true">
+                <depend id="3" type="2" difference="0" hardness="Strong"/>
+                <depend id="4" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="3" uid="dd1051f235c0454d88a27d309d7f5a43" name="Testfallspezifikationen" meeting="false" start="2024-05-13" duration="10" complete="0" expand="true"/>
+        </task>
+        <task id="11" uid="76fce74a9b1c4c1eb85377373e4e1e07" name="Implementierung" meeting="false" start="2024-05-13" duration="25" complete="0" expand="true">
+            <task id="4" uid="1a7e806604764c2cbb4e7d11914f0dd7" name="Programmierung Prototyp" meeting="false" start="2024-05-13" duration="15" complete="0" expand="true">
+                <depend id="7" type="2" difference="0" hardness="Strong"/>
+                <depend id="13" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="7" uid="17e3d24e29474bcfb64eac431e0fcacb" name="Erstellen Handbuch" meeting="false" start="2024-06-03" duration="10" complete="0" expand="true"/>
+        </task>
+        <task id="12" uid="eeb3e9fd6950474ba67dbd3a4c28a53f" name="Test" meeting="false" start="2024-06-03" duration="5" complete="0" expand="true">
+            <task id="13" uid="922d48c559944637abce34d14e59fb4a" name="Testen nach Testfallspezifikationen" meeting="false" start="2024-06-03" duration="1" complete="0" expand="true">
+                <depend id="5" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="5" uid="3438e6596a2f4b46b6c9837bc21dc975" name="Erstellung Testprotokoll" meeting="false" start="2024-06-04" duration="4" complete="0" expand="true">
+                <depend id="8" type="2" difference="0" hardness="Strong"/>
+            </task>
+        </task>
+        <task id="15" uid="aa8d768c7dc24b11bc089fca5925ac8a" name="Implementierung 2" meeting="false" start="2024-06-10" duration="5" complete="0" expand="true">
+            <task id="8" uid="240c03c61aea46959e2af0462a4710ca" name="Überarbeiten des Prototypen" meeting="false" start="2024-06-10" duration="5" complete="0" expand="true"/>
+        </task>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
