@@ -1,0 +1,2 @@
+- Zeitplan überarbeiten, an V-Modell orientieren
+- Pflichtenheft erstellen auf Basis des Lastenhefts
