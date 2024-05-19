@@ -2,4 +2,6 @@
 ...
 """
 
-print("test")
+from . import parser
+
+parser.parse()

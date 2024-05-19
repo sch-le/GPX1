@@ -1,2 +1,4 @@
-- Zeitplan überarbeiten, an V-Modell orientieren
-- Pflichtenheft erstellen auf Basis des Lastenhefts
+Parser.py:
+    - encoding auslesen und übertragen
+    - "standalone" mit auslesen und übertragen
+    - extensions werden zum Teil nicht richtig ausgelesen
