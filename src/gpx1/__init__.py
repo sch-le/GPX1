@@ -1,11 +1,31 @@
 """
 ...
 """
+#Globale Variablen
+count = 0
+
+#Funktionen
+
+def PrintColor (Text):
+
+    if count % 2 == 0 :
+        print(Back.BLACK + Text)
+    elif count % 2 == 1:
+        print(Back.RED + Text)
+    count = count + 1
+
+
+
+from colorama import init, Fore, Back
+
 Startabfrage = 0
 Funktionauswahl = 0
 
-print("Willkommen im GPX-Editor\n")
+BackColor("0")
+print(Fore.YELLOW +"Willkommen im GPX-Editor\n")
+BackColor("1")
 print("Bitte wählen Sie aus folgenden Optionen aus:")
+
 
 while True:
     Startabfrage = input("0: Programm Beenden \n1: Auswahl einer GPX Datei\n")
