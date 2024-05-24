@@ -1,5 +1,5 @@
-<?xml version='1.0' encoding='us-ascii'?>
-<gpx xmlns="http://www.youtube.com/" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" creator="media-tours.de" version="1.1">
+<?xml version='1.0' encoding='ASCII'?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" creator="media-tours.de" version="1.1">
 <metadata>
     <link href="https://www.wegeundpunkte.de/tour.php?t=Moosbachtal-Satansbrocken-Neudahn_Wandern_0111">
       <text>T111_Moosbachtal-Satansbrocken-Neudahn . www.wegeundpunkte.de</text>
@@ -9,7 +9,7 @@
   <trk>
     <name>T111_Moosbachtal-Satansbrocken-Neudahn_Wandern</name>
     <extensions>
-      <gpxx:TrackExtension>
+      <gpxx:TrackExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3">
         <gpxx:DisplayColor>Red</gpxx:DisplayColor>
       </gpxx:TrackExtension>
     </extensions>

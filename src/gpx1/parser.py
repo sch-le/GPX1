@@ -1,25 +1,21 @@
-import xml.etree.ElementTree as ET
+from lxml import etree
 
-def parse() -> ET.ElementTree:
+def parse() -> etree:
     """Parst das übegebene GPX File und gibt es als Objekt zurück
 
     Args:
         file: GPX Datei, die geparst werden soll
 
-    Return: 
+    Return:
         ET.ElementTree: 
      
     """
 
     # Später aus Hauptmenu übergeben
     file = "../data/test1.gpx"
+    tree = etree.parse(file)
     
-    # Namespaces
-    ET.register_namespace("", "http://www.topografix.com/GPX/1/1")
-    ET.register_namespace("gpxx" ,"http://www.garmin.com/xmlschemas/GpxExtensions/v3")
+    return tree
 
-    # Parsen des GPX Files
-    tree = ET.parse(file)
-    print(tree)
-
+def write_file(tree: etree) -> etree: 
     tree.write("../data/output.gpx", xml_declaration=True)
