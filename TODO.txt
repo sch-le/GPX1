@@ -1,2 +1,2 @@
-- Zeitplan überarbeiten, an V-Modell orientieren
-- Pflichtenheft erstellen auf Basis des Lastenhefts
+__init__:
+    - Überprüfen ob Rückagebewert der funktion None ist
