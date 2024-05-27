@@ -1,4 +1,2 @@
-Parser.py:
-    - encoding auslesen und übertragen
-    - "standalone" mit auslesen und übertragen
-    
+__init__:
+    - Überprüfen ob Rückagebewert der funktion None ist

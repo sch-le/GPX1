@@ -1,8 +1,13 @@
-"""
-...
+""" __init__.py
+
+Beschreibung: Editor, mit dem GPX-Dateien bearbeitet werden können
+Autor: Leon Schuck
+Erstellt: 19.05.2024
 """
 
 from . import parser
 
-gpx_tree = parser.parse("../data/test1.gpx")
-parser.write_file(gpx_tree)
+input_gpx = parser.parse("../data/test1.gpx")
+
+if input_gpx is not None:
+    parser.write_file(input_gpx)
