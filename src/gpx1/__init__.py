@@ -5,74 +5,92 @@
 count = 0
 
 #Funktionen
-
+#Erstellen der Farbwechsel Funktion
 def PrintColor (Text):
-
+    #Hier wird mit Globalen Variablen gearbeitet
+    global count
+    #Ist count gerade dann wird ein schwarzer Hintergrund ausgegeben
     if count % 2 == 0 :
-        print(Back.BLACK + Text)
+        print (Fore.YELLOW + Back.BLACK + Text + Style.RESET_ALL)
+
+    #Ist count ungerade dann wird ein roter Hintergrund ausgegeben
     elif count % 2 == 1:
-        print(Back.RED + Text)
+        print(Fore.YELLOW + Back.RED + Text + Style.RESET_ALL)
     count = count + 1
 
-
-
-from colorama import init, Fore, Back
+#Einführen von Colorama
+from colorama import init, Fore, Back, Style
 
 Startabfrage = 0
 Funktionauswahl = 0
 
-BackColor("0")
-print(Fore.YELLOW +"Willkommen im GPX-Editor\n")
-BackColor("1")
-print("Bitte wählen Sie aus folgenden Optionen aus:")
 
+PrintColor("Willkommen im GPX-Editor")
+PrintColor("Bitte wählen Sie aus folgenden Optionen aus:")
 
+#Eingangs abfrage: Auswahl einer Datei
 while True:
-    Startabfrage = input("0: Programm Beenden \n1: Auswahl einer GPX Datei\n")
+    PrintColor("0: Programm Beenden ")
+    PrintColor("1: Auswahl einer GPX Datei")
+    Startabfrage = input()
 
- 
-    print(Startabfrage)
+ #Soll Programm beendet werden?
+    PrintColor(Startabfrage)
     if Startabfrage == "0" or Startabfrage == "1":
-        print("Break")
+        PrintColor("Break")
         break
         
     else:
-        print("Wählen sie bitte nur zwischen 0 & 1")
+        PrintColor("Wählen sie bitte nur zwischen 0 & 1")
 
+    #Auswahl einer Datei treffen
 while Startabfrage == "1": 
-    print("Wählen Sie bitte die gewünschte Datei aus")
-    print("Hier wird gepasst")
+    PrintColor("Wählen Sie bitte die gewünschte Datei aus")
+    PrintColor("Hier wird gepasst")
     # Passing einfügen
 
+    #Auswahl zwischen den Funktionen
     while True:
-        print("Wählen sie bitte zwischen folgenden Optionen aus:")
-        Funktionauswahl = input("0: Programm beenden\n1: Bearbeiten von Tracks\n2: Bearbeiten von Waypoints\n3: Bearbeiten von Routs\n4: Höhen Differenz zw. zwei Waypoints berechnen\n5: Anzahl der Waypoints anzeigen\n ")
-
+        PrintColor("Wählen sie bitte zwischen folgenden Optionen aus:")
+        PrintColor("0: Programm beenden")
+        PrintColor("1: Bearbeiten von Tracks")
+        PrintColor("2: Bearbeiten von Waypoints")
+        PrintColor("3: Bearbeiten von Routs")
+        PrintColor("4: Höhen Differenz zw. zwei Waypoints berechnen")
+        PrintColor("5: Anzahl der Waypoints anzeigen")
+        Funktionauswahl = input()
+        #Beenden des Programms
         if Funktionauswahl == "0":
-            print("Break in der Funktionsauswahl")
+            PrintColor("Break in der Funktionsauswahl")
             Startabfrage = "0"
             break
 
+            #Funktion Track wird aufgerufen
         elif Funktionauswahl == "1":
-            print("Hier werden die Tracks bearbeitet")
+            PrintColor("Hier werden die Tracks bearbeitet")
             #Funktion Track einfügen
 
+            #Funktion Waypoint wird aufgerufen
         elif Funktionauswahl == "2":
-            print("Hier werden die Waypoints bearbeitet")
+            PrintColor("Hier werden die Waypoints bearbeitet")
             #Funktion Waypoints einfügen
 
+            #Funktion Routs wird aufgerufen
         elif Funktionauswahl == "3":
-            print("Hier werden die Routs bearbeitet")
+            PrintColor("Hier werden die Routs bearbeitet")
             #Funktion Routs einfügen
-        
+
+            #Funktion berrechnung Höhendifferenz wird aufgerufen
         elif Funktionauswahl == "4":
-            print("Hier werden die Höhen diff berechnet ")
+            PrintColor("Hier werden die Höhen diff berechnet ")
             #Funktion Höhen diff berechnen einfügen
 
+            #Funktion Anzahl Waypoints wird aufgerufen
         elif Funktionauswahl == "5":
-            print("Hier werden die Anz. Waypoints angezeigt")
+            PrintColor("Hier werden die Anz. Waypoints angezeigt")
             #Funktion Anz.Waypoints einfügen
 
+    #Programm wird beendet
     if Startabfrage == "0":
     
         break
