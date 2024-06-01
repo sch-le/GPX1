@@ -41,13 +41,18 @@ def parse(file_input: str) -> gpx:
 
         # Auslesen der GPX-Daten
         gpx_input.data = etree.parse(file_input)
+        for child in gpx_input.data:
 
+            print(child.tag, child.attrib)
+            
         return gpx_input
+    
+        
     
     except Exception:
         print("Error 100: Die angegebene Datei wurde nicht gefunden!")
         return
-    
+
 def write_file(gpx_output: gpx) -> None:
     """Erstellt aus den übergebenen GPX-Informationen eine .gpx Datei
 

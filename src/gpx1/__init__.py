@@ -9,5 +9,7 @@ from . import parser
 
 input_gpx = parser.parse("../data/test1.gpx")
 
+
+
 if input_gpx is not None:
     parser.write_file(input_gpx)

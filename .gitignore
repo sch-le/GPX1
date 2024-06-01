@@ -1,2 +1,3 @@
 src/gpx1/__pycache__/
 data/output.gpx
+*.gpx
