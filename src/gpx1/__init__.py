@@ -21,10 +21,11 @@ def PrintColor (Text):
 #Einführen von Colorama
 from colorama import init, Fore, Back, Style
 
+#Deklarieren von Laufvariablen
 Startabfrage = 0
 Funktionauswahl = 0
 
-
+#Start des Programmes
 PrintColor("Willkommen im GPX-Editor")
 PrintColor("Bitte wählen Sie aus folgenden Optionen aus:")
 
