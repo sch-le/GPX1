@@ -19,6 +19,7 @@ def main() -> None:
     
     waypoints.calc_elevation(0, 36, input_gpx)
     waypoints.edit(1, 1, 1, 1, input_gpx)
+    waypoints.edit(37, 1, None, 1, input_gpx)
    # file_management.openFile()
 
 
