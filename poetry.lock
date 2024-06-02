@@ -161,4 +161,4 @@ source = ["Cython (>=3.0.10)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "876b70f99ca8099a59b821372ab71e24dd815f86835ff6e75d9fb6ec69d16c7a"
+content-hash = "81b2fa642d7f2d1219cf80112ace12d689d053d81be7f7addb98144d56fc0fb2"
