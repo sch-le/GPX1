@@ -81,18 +81,55 @@ def Main():
                 PrintColor("1. Bearbeiten von Waypoints")
                 PrintColor("2. Höhendifferenz zw. zwei Waypoints berechnen")
                 PrintColor("0. Programm beenden")
-            
+                Funktionauswahl = input()
+
+                while True:
+                    if Funktionauswahl == "1":
+                        waypoints.edit(input_gpx)
+                    
+                    elif Funktionauswahl == "2"
+                        waypoints.calc_elevation(input_gpx)
+
+                    elif Funktionauswahl == "0"
+                        break
+
+                    else:
+                        PrintColor("Unzulässige Eingabe")
                 
             elif Modulabfrage == "2":
                 PrintColor("1. Bearbeiten eines Trackpoints")
                 PrintColor("0. Programm beenden")
+                Funktionauswahl = input()
+
+                while True:
+                    if Funktionauswahl == "1":
+                        track.edit(input_gpx)
+
+                    elif Funktionauswahl == "0"
+                        break
+
+                    else:
+                        PrintColor("Unzulässige Eingabe")
 
                 
             elif Modulabfrage == "3":
                 PrintColor("1. Bearbeiten eines Routpoints")
                 PrintColor("2. Startpunkt festlegen")
                 PrintColor("0. Programm Beenden")
+                Funktionauswahl = input()
 
+                while True:
+                    if Funktionauswahl == "1":
+                        routs.edit(input_gpx)
+                    
+                    elif Funktionauswahl == "2"
+                        routs.edit_startpoint(input_gpx)
+
+                    elif Funktionauswahl == "0"
+                        break
+
+                    else:
+                        PrintColor("Unzulässige Eingabe")
                 
             elif Modulabfrage == "4":
                 PrintColor("Name:")
@@ -100,11 +137,17 @@ def Main():
                 PrintColor("Autor")
                 PrintColor("1. Bearbeiten der Metadaten")
                 PrintColor("0. Programm beenden")
+                Funktionauswahl = input()
 
-                
-            elif Modulabfrage == "5":
-                PrintColor("Hier werden die Anz. Waypoints angezeigt")
-                #Funktion Anz.Waypoints einfügen
+                while True:
+                    if Funktionauswahl == "1":
+                        #Funktion einfügen
+
+                    elif Funktionauswahl == "0"
+                        break
+
+                    else:
+                        PrintColor("Unzulässige Eingabe")
 
         #Programm wird beendet
         if Startabfrage == "0":
