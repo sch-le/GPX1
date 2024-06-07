@@ -6,7 +6,10 @@ Erstellt: 19.05.2024
 """
 #Einführen von Colorama
 from colorama import init, Fore, Back, Style
-
+from . import parser
+from . import routs
+from . import track
+from . import file_management
 #Globale Variablen
 count = 0
 
@@ -43,9 +46,7 @@ def Main():
         Startabfrage = input()
 
     #Soll Programm beendet werden?
-        PrintColor(Startabfrage)
         if Startabfrage == "0" or Startabfrage == "1":
-            PrintColor("Break")
             break
             
         else:
@@ -56,7 +57,7 @@ def Main():
         PrintColor("Wählen Sie bitte die gewünschte Datei aus")
         input_gpx = file_management.open_file()
 
-        PrintColor(f"Anzahl Waypoints: {routs.get_count(input_gpx)}")
+        PrintColor(f"Anzahl Waypoints: {waypoints.get_count(input_gpx)}")
         PrintColor(f"Anzahl Tracks: {track.get_count(input_gpx)}")
         PrintColor(f"Anzahl Routs: {routs.get_count(input_gpx)}")
 
@@ -78,14 +79,25 @@ def Main():
         
                 
             elif Modulabfrage == "1":
-                PrintColor("1. Bearbeiten von Waypoints")
-                PrintColor("2. Höhendifferenz zw. zwei Waypoints berechnen")
-                PrintColor("0. Programm beenden")
-                Funktionauswahl = input()
 
                 while True:
+                    
+                    PrintColor("1. Bearbeiten von Waypoints")
+                    PrintColor("2. Höhendifferenz zw. zwei Waypoints berechnen")
+                    PrintColor("0. Hauptmenü")
+                    Funktionauswahl = input()
+
                     if Funktionauswahl == "1":
-                        waypoints.edit(input_gpx)
+                        PrintColor("Geben sie bitte folgende Daten an")
+                        PrintColor("ID:")
+                        id = input()
+                        PrintColor("Latitute:")
+                        lat = input()
+                        PrintColor("longitut:")
+                        lon = input()
+                        PrintColor("Elevation:")
+                        ele = input()
+                        waypoints.edit(id, lat, lon, ele, input_gpx)
                     
                     elif Funktionauswahl == "2"
                         waypoints.calc_elevation(input_gpx)
@@ -97,11 +109,13 @@ def Main():
                         PrintColor("Unzulässige Eingabe")
                 
             elif Modulabfrage == "2":
-                PrintColor("1. Bearbeiten eines Trackpoints")
-                PrintColor("0. Programm beenden")
-                Funktionauswahl = input()
+
 
                 while True:
+                    PrintColor("1. Bearbeiten eines Trackpoints")
+                    PrintColor("0. Hauptmenü")
+                    Funktionauswahl = input()
+
                     if Funktionauswahl == "1":
                         track.edit(input_gpx)
 
@@ -113,12 +127,13 @@ def Main():
 
                 
             elif Modulabfrage == "3":
-                PrintColor("1. Bearbeiten eines Routpoints")
-                PrintColor("2. Startpunkt festlegen")
-                PrintColor("0. Programm Beenden")
-                Funktionauswahl = input()
+                
 
                 while True:
+                    PrintColor("1. Bearbeiten eines Routpoints")
+                    PrintColor("2. Startpunkt festlegen")
+                    PrintColor("0. Hauptmenü")
+                    Funktionauswahl = input()
                     if Funktionauswahl == "1":
                         routs.edit(input_gpx)
                     
@@ -135,11 +150,11 @@ def Main():
                 PrintColor("Name:")
                 PrintColor("Beschreibung")
                 PrintColor("Autor")
-                PrintColor("1. Bearbeiten der Metadaten")
-                PrintColor("0. Programm beenden")
-                Funktionauswahl = input()
 
                 while True:
+                PrintColor("1. Bearbeiten der Metadaten")
+                PrintColor("0. Hauptmenü")
+                Funktionauswahl = input()
                     if Funktionauswahl == "1":
                         #Funktion einfügen
 
