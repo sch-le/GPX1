@@ -1,22 +1,48 @@
+""" file_management.py
+
+Beschreibung: Erstellen eines Fensters zum auswählen und verwenden von GPX-Dateien unter verwendung von parser.py
+Autor: Lukas Reißmann
+Erstellt: 06.06.2024
+"""
 from tkinter import *
 from tkinter import filedialog
+import os
 
-def openFile():                                                 
-    filepath = filedialog.askopenfilename()                                 # zuweisung des file-pfades der filepath variable
-    if filepath:                                                            # -> wenn eine Datei ausgewählt wird
-        try:
-            with open(filepath, 'r') as file:                               # zuweisung von des file-pfades(filepath) der open funktion
-                content = file.read()                                       # lesen des zugewiesenen files
-                print(content)                                              # nur zu Test-zwecken Ausgabe des File Inhaltes auf der Konsole
-                window.destroy()                                            # schließen des "Öffnen-Knopf" Fensters nach benutzung
-                return content
-        except Exception as e:
-            print(f"Fehler beim Laden der Datei: {e}")                      # prüfen auf Fehler beim datei laden
-    else:                                                                   # -> wenn keine Datei asugewählt wird
+#Importieren der notwendigen Funktionen aus parser.py
+from gpx1.parser import parse, write_file
+
+def open_file():                                                 
+    filepath = filedialog.askopenfilename(
+        #Beschränken der Auswahl auf GPX-Dateien
+        filetypes=[("GPX files", "*.gpx")]  
+    )
+    
+    if filepath:                                                            
+        if not filepath.endswith('.gpx'):
+            print("Fehler: Bitte wählen Sie eine GPX-Datei aus.")
+        else:
+            try:
+                #Verwenden der parse-Funktion aus parser.py
+                gpx_data = parse(filepath)  
+                if gpx_data:
+                    print("GPX-Datei erfolgreich geparst:")               
+                    write_file(gpx_data)  #GPX-Datei schreiben
+                else:
+                    print("Fehler beim Parsen der GPX-Datei.")
+            except Exception as e:
+                print(f"Fehler beim Laden der Datei: {e}")
+    else:                                                                   
         print("Keine Datei ausgewählt.")                                    
-        window.destroy()
 
-window = Tk()                                                               # Fenster für "Öffnen-Knopf"
-button = Button(window, text="Öffnen", command=openFile)
-button.pack()
+    window.destroy()
+
+#Erstellen des Hauptfensters
+window = Tk()                                                               
+window.title("GPX Datei Öffnen")
+
+#Erstellen und platzieren des "Öffnen" Buttons
+button = Button(window, text="Öffnen", command=open_file)
+button.pack(pady=20)
+
+#Starten der Tkinter-Ereignisschleife
 window.mainloop()
