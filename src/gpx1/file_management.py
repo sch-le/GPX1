@@ -4,12 +4,11 @@ Beschreibung: Erstellen eines Fensters zum auswählen und verwenden von GPX-Date
 Autor: Lukas Reißmann
 Erstellt: 06.06.2024
 """
-from tkinter import *
+
 from tkinter import filedialog
-import os
 
 #Importieren der notwendigen Funktionen aus parser.py
-from gpx1.parser import parse, write_file
+from gpx1.parser import parse
 
 def open_file():                                              
     filepath = filedialog.askopenfilename(
@@ -21,22 +20,19 @@ def open_file():
         if not filepath.endswith('.gpx'):
             print("Fehler: Bitte wählen Sie eine GPX-Datei aus.")
         else:
-            #try:
+            try:
                 #Verwenden der parse-Funktion aus parser.py
                 gpx_data = parse(filepath)  
-                if gpx_data:
-                    print("GPX-Datei erfolgreich geparst:")               
-                    write_file(gpx_data)  #GPX-Datei schreiben
-                else:
-                    print("Fehler beim Parsen der GPX-Datei.")
-            #except Exception as e:
-            #    print(f"Fehler beim Laden der Datei: {e}")
+                return gpx_data
+            
+            except Exception as e:
+                print(f"Fehler beim Laden der Datei: {e}")
     else:                                                                   
         print("Keine Datei ausgewählt.")                                    
 
     #window.destroy()
 
-def open_window():
+""" def open_window():
     #Erstellen des Hauptfensters
     window = Tk()                                                               
     window.title("GPX Datei Öffnen")
@@ -46,4 +42,4 @@ def open_window():
     button.pack(pady=20)
 
     #Starten der Tkinter-Ereignisschleife
-    window.mainloop()
+    window.mainloop() """
