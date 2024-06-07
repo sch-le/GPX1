@@ -4,6 +4,8 @@ Beschreibung: Editor, mit dem GPX-Dateien bearbeitet werden können
 Autor: Pascal Köhnlein
 Erstellt: 19.05.2024
 """
+#Einführen von Colorama
+from colorama import init, Fore, Back, Style
 
 #Globale Variablen
 count = 0
@@ -22,80 +24,89 @@ def PrintColor (Text):
         print(Fore.YELLOW + Back.RED + Text + Style.RESET_ALL)
     count = count + 1
 
-#Einführen von Colorama
-from colorama import init, Fore, Back, Style
 
-#Deklarieren von Laufvariablen
-Startabfrage = 0
-Funktionauswahl = 0
+def Main():
 
-#Start des Programmes
-PrintColor("Willkommen im GPX-Editor")
-PrintColor("Bitte wählen Sie aus folgenden Optionen aus:")
+    #Deklarieren von Laufvariablen
+    Startabfrage = 0
+    Funktionauswahl = 0
+    Modulabfrage = 0
 
-#Eingangs abfrage: Auswahl einer Datei
-while True:
-    PrintColor("0: Programm Beenden ")
-    PrintColor("1: Auswahl einer GPX Datei")
-    Startabfrage = input()
+    #Start des Programmes
+    PrintColor("Willkommen im GPX-Editor")
+    PrintColor("Bitte wählen Sie aus folgenden Optionen aus:")
 
- #Soll Programm beendet werden?
-    PrintColor(Startabfrage)
-    if Startabfrage == "0" or Startabfrage == "1":
-        PrintColor("Break")
-        break
-        
-    else:
-        PrintColor("Wählen sie bitte nur zwischen 0 & 1")
-
-    #Auswahl einer Datei treffen
-while Startabfrage == "1": 
-    PrintColor("Wählen Sie bitte die gewünschte Datei aus")
-    PrintColor("Hier wird gepasst")
-    # Passing einfügen
-
-    #Auswahl zwischen den Funktionen
+    #Eingangs abfrage: Auswahl einer Datei
     while True:
-        PrintColor("Wählen sie bitte zwischen folgenden Optionen aus:")
-        PrintColor("0: Programm beenden")
-        PrintColor("1: Bearbeiten von Tracks")
-        PrintColor("2: Bearbeiten von Waypoints")
-        PrintColor("3: Bearbeiten von Routs")
-        PrintColor("4: Höhen Differenz zw. zwei Waypoints berechnen")
-        PrintColor("5: Anzahl der Waypoints anzeigen")
-        Funktionauswahl = input()
-        #Beenden des Programms
-        if Funktionauswahl == "0":
-            PrintColor("Break in der Funktionsauswahl")
-            Startabfrage = "0"
+        PrintColor("0: Programm Beenden ")
+        PrintColor("1: Auswahl einer GPX Datei")
+        Startabfrage = input()
+
+    #Soll Programm beendet werden?
+        PrintColor(Startabfrage)
+        if Startabfrage == "0" or Startabfrage == "1":
+            PrintColor("Break")
             break
+            
+        else:
+            PrintColor("Wählen sie bitte nur zwischen 0 & 1")
 
-            #Funktion Track wird aufgerufen
-        elif Funktionauswahl == "1":
-            PrintColor("Hier werden die Tracks bearbeitet")
-            #Funktion Track einfügen
+        #Auswahl einer Datei treffen
+    while Startabfrage == "1": 
+        PrintColor("Wählen Sie bitte die gewünschte Datei aus")
+        input_gpx = file_management.open_file()
 
-            #Funktion Waypoint wird aufgerufen
-        elif Funktionauswahl == "2":
-            PrintColor("Hier werden die Waypoints bearbeitet")
-            #Funktion Waypoints einfügen
+        PrintColor(f"Anzahl Waypoints: {routs.get_count(input_gpx)}")
+        PrintColor(f"Anzahl Tracks: {track.get_count(input_gpx)}")
+        PrintColor(f"Anzahl Routs: {routs.get_count(input_gpx)}")
 
-            #Funktion Routs wird aufgerufen
-        elif Funktionauswahl == "3":
-            PrintColor("Hier werden die Routs bearbeitet")
-            #Funktion Routs einfügen
+        #Auswahl zwischen den Funktionen
+        while True:
+            PrintColor("Wählen sie bitte zwischen folgenden Optionen aus:")
+            PrintColor("0: Programm beenden")
+            PrintColor("1: Waypoints")
+            PrintColor("2: Tracks")
+            PrintColor("3: Routs")
+            PrintColor("4: Metadaten")
+            Modulabfrage = input()
 
-            #Funktion berrechnung Höhendifferenz wird aufgerufen
-        elif Funktionauswahl == "4":
-            PrintColor("Hier werden die Höhen diff berechnet ")
-            #Funktion Höhen diff berechnen einfügen
 
-            #Funktion Anzahl Waypoints wird aufgerufen
-        elif Funktionauswahl == "5":
-            PrintColor("Hier werden die Anz. Waypoints angezeigt")
-            #Funktion Anz.Waypoints einfügen
+            #Beenden des Programms
+            if Modulabfrage == "0":
+                Startabfrage = "0"
+                break
+        
+                
+            elif Modulabfrage == "1":
+                PrintColor("1. Bearbeiten von Waypoints")
+                PrintColor("2. Höhendifferenz zw. zwei Waypoints berechnen")
+                PrintColor("0. Programm beenden")
+            
+                
+            elif Modulabfrage == "2":
+                PrintColor("1. Bearbeiten eines Trackpoints")
+                PrintColor("0. Programm beenden")
 
-    #Programm wird beendet
-    if Startabfrage == "0":
-    
-        break
+                
+            elif Modulabfrage == "3":
+                PrintColor("1. Bearbeiten eines Routpoints")
+                PrintColor("2. Startpunkt festlegen")
+                PrintColor("0. Programm Beenden")
+
+                
+            elif Modulabfrage == "4":
+                PrintColor("Name:")
+                PrintColor("Beschreibung")
+                PrintColor("Autor")
+                PrintColor("1. Bearbeiten der Metadaten")
+                PrintColor("0. Programm beenden")
+
+                
+            elif Modulabfrage == "5":
+                PrintColor("Hier werden die Anz. Waypoints angezeigt")
+                #Funktion Anz.Waypoints einfügen
+
+        #Programm wird beendet
+        if Startabfrage == "0":
+        
+            break
