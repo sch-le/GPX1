@@ -67,6 +67,7 @@ def Main():
 
                 while True:
                     
+                    #Print_list einfügen
                     PrintColor("1. Bearbeiten von Waypoints")
                     PrintColor("2. Höhendifferenz zw. zwei Waypoints berechnen")
                     PrintColor("0. Hauptmenü")
@@ -76,21 +77,21 @@ def Main():
                         PrintColor("Geben sie bitte folgende Daten an")
                         PrintColor("Bitte beachten sie den geforderten Datentyp in der Klammer")
                         PrintColor("ID:(Integer)")
-                        id = input()
+                        id = input_type(int)
                         PrintColor("Latitute:(Float)")
-                        lat = input()
+                        lat = input_type(float)
                         PrintColor("longitut:(Float)")
-                        lon = input()
+                        lon = input_type(float)
                         PrintColor("Elevation:(Float)")
-                        ele = input()
+                        ele = input_type(float)
                         waypoints.edit(id, lat, lon, ele, input_gpx)
                     
                     elif Funktionauswahl == "2"
                         PrintColor("Geben sie die IDs der Wegpunkte an")
                         PrintColor("ID 1:(Integer)")
-                        id1 = input()
+                        id1 = input_type(int)
                         PrintColor("ID 2:(Integer)")
-                        id2 = input()
+                        id2 = input_type(int)
                         waypoints.calc_elevation(id1, id2, input_gpx)
 
 
@@ -104,12 +105,24 @@ def Main():
 
 
                 while True:
+                    #Print_list einfügen
                     PrintColor("1. Bearbeiten eines Trackpoints")
                     PrintColor("0. Hauptmenü")
+
                     Funktionauswahl = input()
 
                     if Funktionauswahl == "1":
-                        track.edit(input_gpx)
+                        PrintColor("Geben sie bitte folgende Daten an")
+                        PrintColor("Bitte beachten sie den geforderten Datentyp in der Klammer")
+                        PrintColor("ID:(Integer)")
+                        id = input_type(int)
+                        PrintColor("Latitute:(Float)")
+                        lat = input_type(float)
+                        PrintColor("longitut:(Float)")
+                        lon = input_type(float)
+                        PrintColor("Elevation:(Float)")
+                        ele = input_type(float)
+                        track.edit(id, lat, lon, ele, input_gpx)
 
                     elif Funktionauswahl == "0"
                         break
@@ -122,15 +135,34 @@ def Main():
                 
 
                 while True:
+                    #Print_list einfügen
                     PrintColor("1. Bearbeiten eines Routpoints")
                     PrintColor("2. Startpunkt festlegen")
                     PrintColor("0. Hauptmenü")
                     Funktionauswahl = input()
                     if Funktionauswahl == "1":
-                        routs.edit(input_gpx)
+                        PrintColor("Geben sie bitte folgende Daten an")
+                        PrintColor("Bitte beachten sie den geforderten Datentyp in der Klammer")
+                        PrintColor("ID:(Integer)")
+                        id = input_type(int)
+                        PrintColor("Latitute:(Float)")
+                        lat = input_type(float)
+                        PrintColor("longitut:(Float)")
+                        lon = input_type(float)
+                        PrintColor("Elevation:(Float)")
+                        ele = input_type(float)
+                        routs.edit(id, lat, lon, ele, input_gpx)
                     
                     elif Funktionauswahl == "2"
-                        routs.edit_startpoint(input_gpx)
+                        PrintColor("Geben sie bitte folgende Daten an")
+                        PrintColor("Bitte beachten sie den geforderten Datentyp in der Klammer")
+                        PrintColor("Latitute:(Float)")
+                        lat = input_type(float)
+                        PrintColor("longitut:(Float)")
+                        lon = input_type(float)
+                        PrintColor("Elevation:(Float)")
+                        ele = input_type(float)
+                        waypoints.edit(id, lat, lon, ele, input_gpx)
 
                     elif Funktionauswahl == "0"
                         break
