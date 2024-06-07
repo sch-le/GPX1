@@ -4,28 +4,13 @@ Beschreibung: Editor, mit dem GPX-Dateien bearbeitet werden können
 Autor: Pascal Köhnlein
 Erstellt: 19.05.2024
 """
-#Einführen von Colorama
-from colorama import init, Fore, Back, Style
+
 from . import parser
 from . import routs
 from . import track
 from . import file_management
-#Globale Variablen
-count = 0
+from gpx1.usefull import input_type, PrintColor
 
-#Funktionen
-#Erstellen der Farbwechsel Funktion
-def PrintColor (Text):
-    #Hier wird mit Globalen Variablen gearbeitet
-    global count
-    #Ist count gerade dann wird ein schwarzer Hintergrund ausgegeben
-    if count % 2 == 0 :
-        print (Fore.YELLOW + Back.BLACK + Text + Style.RESET_ALL)
-
-    #Ist count ungerade dann wird ein roter Hintergrund ausgegeben
-    elif count % 2 == 1:
-        print(Fore.YELLOW + Back.RED + Text + Style.RESET_ALL)
-    count = count + 1
 
 
 def Main():
@@ -89,18 +74,25 @@ def Main():
 
                     if Funktionauswahl == "1":
                         PrintColor("Geben sie bitte folgende Daten an")
-                        PrintColor("ID:")
+                        PrintColor("Bitte beachten sie den geforderten Datentyp in der Klammer")
+                        PrintColor("ID:(Integer)")
                         id = input()
-                        PrintColor("Latitute:")
+                        PrintColor("Latitute:(Float)")
                         lat = input()
-                        PrintColor("longitut:")
+                        PrintColor("longitut:(Float)")
                         lon = input()
-                        PrintColor("Elevation:")
+                        PrintColor("Elevation:(Float)")
                         ele = input()
                         waypoints.edit(id, lat, lon, ele, input_gpx)
                     
                     elif Funktionauswahl == "2"
-                        waypoints.calc_elevation(input_gpx)
+                        PrintColor("Geben sie die IDs der Wegpunkte an")
+                        PrintColor("ID 1:(Integer)")
+                        id1 = input()
+                        PrintColor("ID 2:(Integer)")
+                        id2 = input()
+                        waypoints.calc_elevation(id1, id2, input_gpx)
+
 
                     elif Funktionauswahl == "0"
                         break
