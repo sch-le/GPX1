@@ -89,18 +89,25 @@ def Main():
 
                     if Funktionauswahl == "1":
                         PrintColor("Geben sie bitte folgende Daten an")
-                        PrintColor("ID:")
+                        PrintColor("Bitte beachten sie den geforderten Datentyp in der Klammer")
+                        PrintColor("ID:(Integer)")
                         id = input()
-                        PrintColor("Latitute:")
+                        PrintColor("Latitute:(Float)")
                         lat = input()
-                        PrintColor("longitut:")
+                        PrintColor("longitut:(Float)")
                         lon = input()
-                        PrintColor("Elevation:")
+                        PrintColor("Elevation:(Float)")
                         ele = input()
                         waypoints.edit(id, lat, lon, ele, input_gpx)
                     
                     elif Funktionauswahl == "2"
-                        waypoints.calc_elevation(input_gpx)
+                        PrintColor("Geben sie die IDs der Wegpunkte an")
+                        PrintColor("ID 1:(Integer)")
+                        id1 = input()
+                        PrintColor("ID 2:(Integer)")
+                        id2 = input()
+                        waypoints.calc_elevation(id1, id2, input_gpx)
+
 
                     elif Funktionauswahl == "0"
                         break
