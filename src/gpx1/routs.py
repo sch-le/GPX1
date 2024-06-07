@@ -11,7 +11,7 @@ from gpx1.config import gpx
 import lxml
 
 def _get_wpts(input_gpx: gpx) -> list:
-    """Erstellt eine Liste mit allen Waypoints (Routenpunkte) und der dazugehörigen Latitude, Longitude und optionalen Elevation
+    """Erstellt eine Liste mit allen Routenpunkte und der dazugehörigen Latitude, Longitude und optionalen Elevation
 
     Args:
         input_gpx (gpx): Daten der GPX-Datei
@@ -20,7 +20,7 @@ def _get_wpts(input_gpx: gpx) -> list:
         list: Liste mit Latitude, Longitude, Elevation
     """
     
-    wpts = []
+    rpts = []
     
     # Suchen aller Routenpunkte (rtept) in der GPX-Datei
     
@@ -38,9 +38,84 @@ def _get_wpts(input_gpx: gpx) -> list:
             if rtept.find("{*}ele") is not None:
                 ele = float(rtept.find("{*}ele").text)
         
-            wpts.append([lat, lon, ele])
+            rpts.append([lat, lon, ele])
     
-    return wpts
+    return rpts
+
+def print_list(input_gpx: gpx) -> None:
+    """Gibt eine Liste mit allen Routenpunkte und der dazugehörigen Latitude Longitude und optinalen Elevation aus
+
+    Args:
+        input_gpx (gpx): Daten der GPX-Datei
+    """
+    
+    print("   ID   |  Latitude  |  Longitude  |  Elevation")
+    print("--------|------------|-------------|-------------")
+    
+    # Erstellen einer Liste mit allen Routenpunkt
+    rpts = _get_wpts(input_gpx)
+    
+    # Ausgabe der Routenpunkt Informationen in Listenform
+    for id, rpt in enumerate(rpts):
+        if rpt[2] != "":
+            print(f"  {id:04}  |  {rpt[0]:9.6f} |  {rpt[1]:9.6f}  | {rpt[2]:9.6f}")
+        else:
+            print(f"  {id:04}  |  {rpt[0]:9.6f} |  {rpt[1]:9.6f}  | {rpt[2]} ")
+
+
+def get_count(input_gpx: gpx) -> int:
+    """Gibt die Anzahl der in der Datei vorkommenden Routenpunkte zurück
+
+    Args:
+        input_gpx (gpx): _description_
+    """
+    
+    rpts = _get_wpts
+    
+    return len(rpts)
+
+
+def edit(id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
+    """Ändert die Latitude, Longitude und Elevation eines gegebenen Routenpunkte
+ 
+    Args:
+        id (int): ID des zu bearbeitenden Routenpunkte
+        lat (float): Latitude
+        lon (float): Longitude
+        ele (float): Elevation
+        input_gpx (gpx): Daten der GPX-Datei
+
+    Returns:
+        gpx: Bearbeitete GPX-Daten
+    """
+    
+    rpts = _get_wpts(input_gpx)
+
+    if not (0 <= id <= len(rpts)):
+        print("Error 204: Routenpunkt nicht vorhanden!")
+        return
+    
+    # Suchen des bestimmten Elements "wpt"
+    rpt = input_gpx.etree.findall("{*}rtept")[id]
+    
+    # Ändern der Latitude und Longitude, über die Child-Elemente "lat" und "lon"
+    if lat is not None:
+        rpt.set("lat", str(lat))
+        
+    if lon is not None:
+        rpt.set("lon", str(lon))
+    
+    if ele is not None:
+        try:
+            # Ändern der Elevation über Child-Element "ele", falls dieses vorhanden ist
+            rpt.find("{*}ele").text = str(ele)
+        except Exception:
+            # Erstellen des Child-Elements "ele"
+            rpt.append(lxml.etree.Element("ele"))
+            rpt.find("{*}ele").text = str(ele)
+    
+    print_list(input_gpx)
+    return input_gpx
 
 def edit_startpoint(lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
     """Ändert den Startpunkt einer geschlossenen Route.
