@@ -67,6 +67,7 @@ def Main():
 
                 while True:
                     
+                    #Print_list einfügen
                     PrintColor("1. Bearbeiten von Waypoints")
                     PrintColor("2. Höhendifferenz zw. zwei Waypoints berechnen")
                     PrintColor("0. Hauptmenü")
@@ -104,6 +105,7 @@ def Main():
 
 
                 while True:
+                    #Print_list einfügen
                     PrintColor("1. Bearbeiten eines Trackpoints")
                     PrintColor("0. Hauptmenü")
 
@@ -133,6 +135,7 @@ def Main():
                 
 
                 while True:
+                    #Print_list einfügen
                     PrintColor("1. Bearbeiten eines Routpoints")
                     PrintColor("2. Startpunkt festlegen")
                     PrintColor("0. Hauptmenü")
