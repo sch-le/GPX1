@@ -86,7 +86,7 @@ def Main():
                         ele = input_type(float)
                         waypoints.edit(id, lat, lon, ele, input_gpx)
                     
-                    elif Funktionauswahl == "2"
+                    elif Funktionauswahl == "2":
                         PrintColor("Geben sie die IDs der Wegpunkte an")
                         PrintColor("ID 1:(Integer)")
                         id1 = input_type(int)
@@ -95,7 +95,7 @@ def Main():
                         waypoints.calc_elevation(id1, id2, input_gpx)
 
 
-                    elif Funktionauswahl == "0"
+                    elif Funktionauswahl == "0":
                         break
 
                     else:
@@ -124,7 +124,7 @@ def Main():
                         ele = input_type(float)
                         track.edit(id, lat, lon, ele, input_gpx)
 
-                    elif Funktionauswahl == "0"
+                    elif Funktionauswahl == "0":
                         break
 
                     else:
@@ -153,7 +153,7 @@ def Main():
                         ele = input_type(float)
                         routs.edit(id, lat, lon, ele, input_gpx)
                     
-                    elif Funktionauswahl == "2"
+                    elif Funktionauswahl == "2":
                         PrintColor("Geben sie bitte folgende Daten an")
                         PrintColor("Bitte beachten sie den geforderten Datentyp in der Klammer")
                         PrintColor("Latitute:(Float)")
@@ -164,7 +164,7 @@ def Main():
                         ele = input_type(float)
                         waypoints.edit(id, lat, lon, ele, input_gpx)
 
-                    elif Funktionauswahl == "0"
+                    elif Funktionauswahl == "0":
                         break
 
                     else:
@@ -182,7 +182,7 @@ def Main():
                     if Funktionauswahl == "1":
                         #Funktion einfügen
 
-                    elif Funktionauswahl == "0"
+                    elif Funktionauswahl == "0":
                         break
 
                     else:
