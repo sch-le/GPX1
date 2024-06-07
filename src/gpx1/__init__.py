@@ -4,28 +4,13 @@ Beschreibung: Editor, mit dem GPX-Dateien bearbeitet werden können
 Autor: Pascal Köhnlein
 Erstellt: 19.05.2024
 """
-#Einführen von Colorama
-from colorama import init, Fore, Back, Style
+
 from . import parser
 from . import routs
 from . import track
 from . import file_management
-#Globale Variablen
-count = 0
+from gpx1.usefull import input_type, PrintColor
 
-#Funktionen
-#Erstellen der Farbwechsel Funktion
-def PrintColor (Text):
-    #Hier wird mit Globalen Variablen gearbeitet
-    global count
-    #Ist count gerade dann wird ein schwarzer Hintergrund ausgegeben
-    if count % 2 == 0 :
-        print (Fore.YELLOW + Back.BLACK + Text + Style.RESET_ALL)
-
-    #Ist count ungerade dann wird ein roter Hintergrund ausgegeben
-    elif count % 2 == 1:
-        print(Fore.YELLOW + Back.RED + Text + Style.RESET_ALL)
-    count = count + 1
 
 
 def Main():
