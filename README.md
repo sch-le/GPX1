@@ -74,10 +74,10 @@ Sie haben wieder verschiedene Auswahlmöglichkeiten.
 
 
 3:Routs
-Funktion im Prototyp nicht vorhanden
+Modul im Prototyp nicht vorhanden
 
 4:Metadaten(Optional)
-Funktion im Prototyp nicht vorhanden
+Modul im Prototyp nicht vorhanden
 
 5: Änderungen speichern
 Die Änderungen wurden gespeichert, es wurde zusätzlich eine Output.gpx erzeugt, welche alle Änderungen beinhaltet.
