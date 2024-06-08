@@ -7,6 +7,7 @@ Erstellt: 19.05.2024
 
 from lxml import etree
 import re
+import sys
 
 from . import config
 from gpx1.config import gpx
@@ -36,10 +37,9 @@ def parse(file_input: str) -> gpx:
         gpx_input.etree = etree.parse(file_input)
         
         return gpx_input
-    except Exception:
-        print_color("Error 100: Die angegebene Datei wurde nicht gefunden!")
-        return
-    
+    except Exception as e:
+        print_color("Error 100: Fehler beim parsen der GPX-Datei: " + e)
+        sys.exit()
 
 def write_file(gpx_output: gpx) -> None:
     """Erstellt aus den übergebenen GPX-Informationen eine .gpx Datei
