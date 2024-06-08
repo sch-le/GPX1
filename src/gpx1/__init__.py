@@ -320,6 +320,7 @@ def rout_menu(input_gpx: gpx):
         if auswahl == "0":
             return input_gpx
 
+        # Auswahl einer Route
         elif auswahl == "1":
             cls()
             routs.print_rtes(input_gpx)
@@ -354,7 +355,8 @@ def rout_menu(input_gpx: gpx):
                 ele = input_type(float)
 
                 routs.edit(rpt_id, lat, lon, ele, input_gpx)
-                
+            
+            # Auswah
             elif auswahl == "2":
                 cls()
 

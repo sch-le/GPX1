@@ -1,2 +1,5 @@
 __init__:
-    - Überprüfen ob Rückagebewert der funktion None ist
+    - Hauptmenü bzw. Untermenüs vereinheitlichen
+
+Routs:
+    - fertigstellen
