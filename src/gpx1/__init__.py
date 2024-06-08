@@ -189,26 +189,26 @@ def main():
                     if Funktionauswahl == "1":
                         cls()
                         routs.print_rtes(input_gpx)
-                        print_color("[id] Wählen sie einer der Aufgelisteten Routen!")
-                        id = input_type(int)
-                        routs._get_rtepts(id, input_gpx)
-                                           
+                        print_color("[id] Wählen sie eine der aufgelisteten Routen!")
+                        route_id = input_type(int)
+                        rtepts = routs._get_rtepts(route_id, input_gpx)
+                                    
                         print_color("1. Bearbeiten von Routenpunkten")
                         print_color("2. Bearbeiten von Startpunkt")                    
                         print_color("0. Hauptmenü")
-                        id = input_type(int)
                         
                         Funktionauswahl = input()
 
                         if Funktionauswahl == "1":
-                            routs.print_list_rtepts(input_gpx)
+                            cls()
+                            routs.print_list_rtepts(route_id, input_gpx)
                         
                             print_color("\nGeben sie bitte folgende Daten an")
                             print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
                         
                             # Abfragen der Routepoint Informationen
                             print_color("ID:(Integer)")
-                            id = input_type(int)
+                            rpt_id = input_type(int)
                             print_color("Latitute:(Float)")
                             lat = input_type(float)
                             print_color("longitut:(Float)")
@@ -216,12 +216,11 @@ def main():
                             print_color("Elevation:(Float)")
                             ele = input_type(float)
 
-                            routs.edit(id, lat, lon, ele, input_gpx)
-                        
-                        elif Funktionauswahl == "2":
+                            routs.edit(route_id, rpt_id, lat, lon, ele, input_gpx)
                             
-                            routs.edit_startpoint(input_gpx)
-                        
+                        elif Funktionauswahl == "2":
+                            routs.edit_startpoint()
+                            
                         elif Funktionauswahl == "0":
                             break
             
