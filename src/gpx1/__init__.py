@@ -8,14 +8,14 @@ Erstellt: 19.05.2024
 import sys
 
 #from . import parser
+from gpx1.config import gpx
 from . import waypoints
 from . import routs
 from . import track
 from . import file_management
+from . import parser
 from gpx1.usefull import input_type, print_color, cls
-
-
-
+    
 def main():
     
     #Deklarieren von Laufvariablen
@@ -57,6 +57,7 @@ def main():
             print_color("2: Tracks")
             print_color("3: Routs")
             print_color("4: Metadaten")
+            print_color("5: Änderungen speichern")
             Modulabfrage = input()
 
 
@@ -244,7 +245,12 @@ def main():
                     else:
                         print_color("Unzulässige Eingabe")
 
+            elif Modulabfrage == "5":
+                parser.write_file(input_gpx)
+                print_color("Datei wurde unter ... gespeichert! Mit beliebiger Taste bestätigen.")
+                input()
+                
         #Programm wird beendet
         if Startabfrage == "0":
         
-            break
+            break#
