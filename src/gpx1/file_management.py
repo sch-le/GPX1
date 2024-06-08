@@ -12,25 +12,25 @@ from gpx1.parser import parse
 from gpx1.usefull import print_color
 
 def open_file():
-    while True:                                              
-        filepath = filedialog.askopenfilename(
-            #Beschränken der Auswahl auf GPX-Dateien
-            filetypes=[("GPX files", "*.gpx")]  
-        )
-        
-        if filepath:                                                            
-            if not filepath.endswith('.gpx'):
-                print_color("Fehler: Bitte wählen Sie eine GPX-Datei aus.")
-            else:
-                try:
-                    #Verwenden der parse-Funktion aus parser.py
-                    gpx_data = parse(filepath)  
-                    return gpx_data
-                
-                except Exception as e:
-                    print_color(f"Fehler beim Laden der Datei: {e}")
-        else:                                                                   
-            print_color("Keine Datei ausgewählt.")                                    
+    #while True:                                              
+    filepath = filedialog.askopenfilename(
+        #Beschränken der Auswahl auf GPX-Dateien
+        filetypes=[("GPX files", "*.gpx")]  
+    )
+    
+    if filepath:                                                            
+        if not filepath.endswith('.gpx'):
+            print_color("Fehler: Bitte wählen Sie eine GPX-Datei aus.")
+        else:
+            try:
+                #Verwenden der parse-Funktion aus parser.py
+                gpx_data = parse(filepath)  
+                return gpx_data
+            
+            except Exception as e:
+                print_color(f"Fehler beim Laden der Datei: {e}")
+    else:                                                                   
+        print_color("Keine Datei ausgewählt.")                                    
 
     #window.destroy()
 

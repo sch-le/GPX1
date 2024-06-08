@@ -61,5 +61,9 @@ def print_color (text):
         
     count = count + 1
 
+def confirm():
+    print_color("Bestätigen Sie mit beliebiger Taste.")
+    input()
+
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')

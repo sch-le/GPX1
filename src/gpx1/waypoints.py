@@ -8,7 +8,7 @@ Erstellt: 01.06.2024
 """
 
 from gpx1.config import gpx
-from gpx1.usefull import print_color
+from gpx1.usefull import print_color, confirm
 import lxml
 
 def _get_wpts(input_gpx: gpx) -> list:
@@ -118,8 +118,9 @@ def edit(id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
     
     wpts = _get_wpts(input_gpx)
 
-    if not (0 <= id <= len(wpts)):
+    if not (0 <= id < len(wpts)):
         print_color("Error 204: Waypoint nicht vorhanden!")
+        confirm()
         return
     
     # Suchen des bestimmten Elements "wpt"
@@ -141,5 +142,4 @@ def edit(id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
             wpt.append(lxml.etree.Element("ele"))
             wpt.find("{*}ele").text = str(ele)
     
-    print_list(input_gpx)
     return input_gpx
