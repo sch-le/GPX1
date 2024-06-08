@@ -57,38 +57,43 @@ def print_list_trks(input_gpx: gpx) -> None:
     for id, trk in enumerate(trks):
         print_color(f"  {id:4}  |  {trk[id]}")
 
-def print_list_trksegs(i, input_gpx: gpx) -> None:
+def print_list_trksegs(trk, input_gpx: gpx) -> None:
     """_summary_
 
     Args:
         input_gpx (gpx): _description_
     """
-    print_color("   Tracksegmente   ")
-    print_color("-------------------")
-    
     # Creates List of all tracks with their corrosponding tracksegments and trackpoints
     trks = _get_trks(input_gpx)
     
-    if not (0 <= i < len(trks)):
+    if not (0 <= trk < len(trks)):
         return
     
-    for id, trkseg in enumerate(trks[i][1]):
+    print_color("   Tracksegmente   ")
+    print_color("-------------------")
+    
+    for id, _ in enumerate(trks[trk][1]):
         print_color(f"  {id:4}  ")
 
-def print_list_trkpts(input_gpx: gpx) -> None:
+def print_list_trkpts(trk, trkseg, input_gpx: gpx) -> None:
     """Prints a list of all trackpoints with their corresponding latitude, longitude, and optional elevation.
 
     Args:
         input_gpx (gpx): Data from the GPX file
     """
-    print("   ID   |  Latitude  |  Longitude  |  Elevation  ")
-    print("--------|------------|-------------|-------------")
     
-    # Create a list of all trackpoints
-    trkpts = _get_trks(input_gpx)
+    # Creates List of all tracks with their corrosponding tracksegments and trackpoints
+    trks = _get_trks(input_gpx)
     
+    if not (0 <= trkseg < len(trks[trk][1])):
+        print("Error 201: Tracksegment ausserhalb des gültigen Bereichs!")
+        return
+    
+    print_color("   ID   |  Latitude  |  Longitude  |  Elevation  ")
+    print_color("--------|------------|-------------|-------------")
+
     # Print trackpoint information in list form
-    for id, trkpt in enumerate(trkpts):
+    for id, trkpt in enumerate(trks[trk][1][trkseg]):
         if trkpt[2] != "":
             print(f"  {id:04}  |  {trkpt[0]:9.6f} |  {trkpt[1]:9.6f}  | {trkpt[2]:9.6f}")
         else:
@@ -106,39 +111,7 @@ def get_count(input_gpx: gpx) -> int:
     trkpts = _get_trks(input_gpx)
     return len(trkpts)
 
-#def calc_elevation(id1: int, id2: int, input_gpx: gpx) -> float:
-#    """Returns the elevation difference between two trackpoints.
-#
-#    Args:
-#        id1 (int): ID of the first trackpoint
-#        id2 (int): ID of the second trackpoint
-#
-#    Returns:
-#        float: Elevation difference
-#    """
-#    trkpts = _get_trkpts(input_gpx)
-#    
-#    if not (0 <= id1 < len(trkpts)):
-#        print("Error 200: Trackpoint 1 not found!")
-#        return
-#    
-#    if not (0 <= id2 < len(trkpts)):
-#        print("Error 201: Trackpoint 2 not found!")
-#        return
-#    
-#    if trkpts[id1][2] == "":
-#        print("Error 202: No elevation information for Trackpoint 1!")
-#        return
-#    
-#    if trkpts[id2][2] == "":
-#        print("Error 203: No elevation information for Trackpoint 2!")
-#        return
-#    
-#    ele_diff = float(trkpts[id2][2]) - float(trkpts[id1][2])
-#    print(f"Elevation difference = {ele_diff}")
-#    return ele_diff
-
-def edit(id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
+def edit(trk_id: int, trkseg_id: int, trkpt_id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
     """Edits the latitude, longitude, and elevation of a given trackpoint.
 
     Args:
@@ -151,14 +124,17 @@ def edit(id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
     Returns:
         gpx: Edited GPX data
     """
-    trkpts = _get_trks(input_gpx)
+    trks = _get_trks(input_gpx)
 
-    if not (0 <= id < len(trkpts)):
-        print("Error 204: Trackpoint not found!")
+    if not (0 <= trkpt_id < len(trks[trk_id][1][trkseg_id])):
+        print("Error 201: Tracksegment ausserhalb des gültigen Bereichs!")
         return
     
     # Find the specific "trkpt" element
-    trkpt = input_gpx.etree.findall("{*}trk/{*}trkseg/{*}trkpt")[id]
+    #trkpt = input_gpx.etree.findall("{*}trk/{*}trkseg/{*}trkpt")[id]
+    trk = input_gpx.etree.findall("{*}trk")[trk_id]
+    trkseg = trk.findall("{*}trkseg")[trkseg_id]
+    trkpt = trkseg.findall("{*}trkpt")[trkpt_id]
     
     # Edit the latitude and longitude using the attributes "lat" and "lon"
     if lat is not None:
@@ -176,5 +152,5 @@ def edit(id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
             trkpt.append(lxml.etree.Element("ele"))
             trkpt.find("{*}ele").text = str(ele)
     
-    #print_list(input_gpx)
+    print_list_trkpts(trk_id, trkseg_id, input_gpx)
     return input_gpx
