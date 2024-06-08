@@ -5,29 +5,32 @@ Autor: Pascal Köhnlein
 Erstellt: 19.05.2024
 """
 
-from . import parser
+import sys
+
+#from . import parser
+from . import waypoints
 from . import routs
 from . import track
 from . import file_management
-from gpx1.usefull import input_type, PrintColor
+from gpx1.usefull import input_type, print_color, cls
 
 
 
-def Main():
-
+def main():
+    
     #Deklarieren von Laufvariablen
     Startabfrage = 0
     Funktionauswahl = 0
     Modulabfrage = 0
 
     #Start des Programmes
-    PrintColor("Willkommen im GPX-Editor")
-    PrintColor("Bitte wählen Sie aus folgenden Optionen aus:")
+    print_color("Willkommen im GPX-Editor")
+    print_color("Bitte wählen Sie aus folgenden Optionen aus:")
 
     #Eingangs abfrage: Auswahl einer Datei
     while True:
-        PrintColor("0: Programm Beenden ")
-        PrintColor("1: Auswahl einer GPX Datei")
+        print_color("0: Programm Beenden ")
+        print_color("1: Auswahl einer GPX Datei")
         Startabfrage = input()
 
     #Soll Programm beendet werden?
@@ -35,25 +38,25 @@ def Main():
             break
             
         else:
-            PrintColor("Wählen sie bitte nur zwischen 0 & 1")
+            print_color("Wählen sie bitte nur zwischen 0 & 1")
 
         #Auswahl einer Datei treffen
     while Startabfrage == "1": 
-        PrintColor("Wählen Sie bitte die gewünschte Datei aus")
+        print_color("Wählen Sie bitte die gewünschte Datei aus")
         input_gpx = file_management.open_file()
 
-        PrintColor(f"Anzahl Waypoints: {waypoints.get_count(input_gpx)}")
-        PrintColor(f"Anzahl Tracks: {track.get_count(input_gpx)}")
-        PrintColor(f"Anzahl Routs: {routs.get_count(input_gpx)}")
+        print_color(f"Anzahl Waypoints: {waypoints.get_count(input_gpx)}")
+        print_color(f"Anzahl Tracks: {track.get_count(input_gpx)}")
+        print_color(f"Anzahl Routs: {routs.get_count(input_gpx)}")
 
         #Auswahl zwischen den Funktionen
         while True:
-            PrintColor("Wählen sie bitte zwischen folgenden Optionen aus:")
-            PrintColor("0: Programm beenden")
-            PrintColor("1: Waypoints")
-            PrintColor("2: Tracks")
-            PrintColor("3: Routs")
-            PrintColor("4: Metadaten")
+            print_color("Wählen sie bitte zwischen folgenden Optionen aus:")
+            print_color("0: Programm beenden")
+            print_color("1: Waypoints")
+            print_color("2: Tracks")
+            print_color("3: Routs")
+            print_color("4: Metadaten")
             Modulabfrage = input()
 
 
@@ -62,65 +65,78 @@ def Main():
                 Startabfrage = "0"
                 break
         
-                
+            # Untermenu Waypoints    
             elif Modulabfrage == "1":
-
+    
                 while True:
+                    cls()
                     
-                    #Print_list einfügen
-                    PrintColor("1. Bearbeiten von Waypoints")
-                    PrintColor("2. Höhendifferenz zw. zwei Waypoints berechnen")
-                    PrintColor("0. Hauptmenü")
+                    waypoints.print_list(input_gpx)
+                    print_color("\n1. Bearbeiten von Waypoints")
+                    print_color("2. Höhendifferenz zw. zwei Waypoints berechnen")
+                    print_color("0. Hauptmenü")
+                    
                     Funktionauswahl = input()
 
                     if Funktionauswahl == "1":
-                        PrintColor("Geben sie bitte folgende Daten an")
-                        PrintColor("Bitte beachten sie den geforderten Datentyp in der Klammer")
-                        PrintColor("ID:(Integer)")
+                        cls()
+                        
+                        waypoints.print_list(input_gpx)
+                        print_color("\nGeben sie bitte folgende Daten an")
+                        print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
+                        
+                        # Abfragen der Waypoint Informationen
+                        print_color("ID:(Integer)")
                         id = input_type(int)
-                        PrintColor("Latitute:(Float)")
+                        print_color("Latitute:(Float)")
                         lat = input_type(float)
-                        PrintColor("longitut:(Float)")
+                        print_color("longitut:(Float)")
                         lon = input_type(float)
-                        PrintColor("Elevation:(Float)")
+                        print_color("Elevation:(Float)")
                         ele = input_type(float)
+                        
                         waypoints.edit(id, lat, lon, ele, input_gpx)
                     
                     elif Funktionauswahl == "2":
-                        PrintColor("Geben sie die IDs der Wegpunkte an")
-                        PrintColor("ID 1:(Integer)")
+                        cls()
+                        
+                        waypoints.print_list(input_gpx)
+                        print_color("\nGeben sie die IDs der Wegpunkte an")
+                        print_color("ID 1:(Integer)")
                         id1 = input_type(int)
-                        PrintColor("ID 2:(Integer)")
+                        print_color("ID 2:(Integer)")
                         id2 = input_type(int)
-                        waypoints.calc_elevation(id1, id2, input_gpx)
-
+                        ele_diff = waypoints.calc_elevation(id1, id2, input_gpx)
+                        print_color(f"Höhendifferenz: {ele_diff:9.6f}")
+                        input()
 
                     elif Funktionauswahl == "0":
+                        cls()
                         break
 
                     else:
-                        PrintColor("Unzulässige Eingabe")
+                        print_color("Unzulässige Eingabe")
                 
             elif Modulabfrage == "2":
 
 
                 while True:
                     #Print_list einfügen
-                    PrintColor("1. Bearbeiten eines Trackpoints")
-                    PrintColor("0. Hauptmenü")
+                    print_color("1. Bearbeiten eines Trackpoints")
+                    print_color("0. Hauptmenü")
 
                     Funktionauswahl = input()
 
                     if Funktionauswahl == "1":
-                        PrintColor("Geben sie bitte folgende Daten an")
-                        PrintColor("Bitte beachten sie den geforderten Datentyp in der Klammer")
-                        PrintColor("ID:(Integer)")
+                        print_color("Geben sie bitte folgende Daten an")
+                        print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
+                        print_color("ID:(Integer)")
                         id = input_type(int)
-                        PrintColor("Latitute:(Float)")
+                        print_color("Latitute:(Float)")
                         lat = input_type(float)
-                        PrintColor("longitut:(Float)")
+                        print_color("longitut:(Float)")
                         lon = input_type(float)
-                        PrintColor("Elevation:(Float)")
+                        print_color("Elevation:(Float)")
                         ele = input_type(float)
                         track.edit(id, lat, lon, ele, input_gpx)
 
@@ -128,7 +144,7 @@ def Main():
                         break
 
                     else:
-                        PrintColor("Unzulässige Eingabe")
+                        print_color("Unzulässige Eingabe")
 
                 
             elif Modulabfrage == "3":
@@ -136,31 +152,31 @@ def Main():
 
                 while True:
                     #Print_list einfügen
-                    PrintColor("1. Bearbeiten eines Routpoints")
-                    PrintColor("2. Startpunkt festlegen")
-                    PrintColor("0. Hauptmenü")
+                    print_color("1. Bearbeiten eines Routpoints")
+                    print_color("2. Startpunkt festlegen")
+                    print_color("0. Hauptmenü")
                     Funktionauswahl = input()
                     if Funktionauswahl == "1":
-                        PrintColor("Geben sie bitte folgende Daten an")
-                        PrintColor("Bitte beachten sie den geforderten Datentyp in der Klammer")
-                        PrintColor("ID:(Integer)")
+                        print_color("Geben sie bitte folgende Daten an")
+                        print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
+                        print_color("ID:(Integer)")
                         id = input_type(int)
-                        PrintColor("Latitute:(Float)")
+                        print_color("Latitute:(Float)")
                         lat = input_type(float)
-                        PrintColor("longitut:(Float)")
+                        print_color("longitut:(Float)")
                         lon = input_type(float)
-                        PrintColor("Elevation:(Float)")
+                        print_color("Elevation:(Float)")
                         ele = input_type(float)
                         routs.edit(id, lat, lon, ele, input_gpx)
                     
                     elif Funktionauswahl == "2":
-                        PrintColor("Geben sie bitte folgende Daten an")
-                        PrintColor("Bitte beachten sie den geforderten Datentyp in der Klammer")
-                        PrintColor("Latitute:(Float)")
+                        print_color("Geben sie bitte folgende Daten an")
+                        print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
+                        print_color("Latitute:(Float)")
                         lat = input_type(float)
-                        PrintColor("longitut:(Float)")
+                        print_color("longitut:(Float)")
                         lon = input_type(float)
-                        PrintColor("Elevation:(Float)")
+                        print_color("Elevation:(Float)")
                         ele = input_type(float)
                         waypoints.edit(id, lat, lon, ele, input_gpx)
 
@@ -168,25 +184,26 @@ def Main():
                         break
 
                     else:
-                        PrintColor("Unzulässige Eingabe")
+                        print_color("Unzulässige Eingabe")
                 
             elif Modulabfrage == "4":
-                PrintColor("Name:")
-                PrintColor("Beschreibung")
-                PrintColor("Autor")
+                print_color("Name:")
+                print_color("Beschreibung")
+                print_color("Autor")
 
                 while True:
-                PrintColor("1. Bearbeiten der Metadaten")
-                PrintColor("0. Hauptmenü")
-                Funktionauswahl = input()
+                    print_color("1. Bearbeiten der Metadaten")
+                    print_color("0. Hauptmenü")
+                    Funktionauswahl = input()
                     if Funktionauswahl == "1":
+                        ...
                         #Funktion einfügen
-
                     elif Funktionauswahl == "0":
+        
                         break
 
                     else:
-                        PrintColor("Unzulässige Eingabe")
+                        print_color("Unzulässige Eingabe")
 
         #Programm wird beendet
         if Startabfrage == "0":

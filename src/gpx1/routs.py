@@ -70,7 +70,7 @@ def get_count(input_gpx: gpx) -> int:
         input_gpx (gpx): _description_
     """
     
-    rpts = _get_wpts
+    rpts = _get_wpts(input_gpx)
     
     return len(rpts)
 

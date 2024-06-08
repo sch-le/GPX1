@@ -10,7 +10,7 @@ import re
 
 from . import config
 from gpx1.config import gpx
-
+from gpx1.usefull import print_color
 
 def parse(file_input: str) -> gpx:
     """Parst das übegebene GPX File und gibt es als Objekt zurück
@@ -37,7 +37,7 @@ def parse(file_input: str) -> gpx:
         
         return gpx_input
     except Exception:
-        print("Error 100: Die angegebene Datei wurde nicht gefunden!")
+        print_color("Error 100: Die angegebene Datei wurde nicht gefunden!")
         return
     
 
@@ -47,7 +47,7 @@ def write_file(gpx_output: gpx) -> None:
     Args:
         gpx_output: zu speichernde GPX-Daten und XML-Deklarationen
     """
-
+    
     # Ausgabe des GPX-Files
     if gpx_output.standalone is None:
         gpx_output.etree.write(config.output_path, xml_declaration=True, encoding=gpx_output.encoding)
