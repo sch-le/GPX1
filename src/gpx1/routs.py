@@ -85,7 +85,7 @@ def _get_rtepts(id: int, input_gpx: gpx) -> list:
     
     return rtepts
 
-def print_list_rtepts(id, input_gpx: gpx) -> None:
+def print_list_rtepts(id: int, input_gpx: gpx) -> None:
     """Gibt eine Liste mit allen Routenpunkten und der dazugehörigen Latitude Longitude und optinalen Elevation aus
 
     Args:
@@ -123,7 +123,7 @@ def edit(id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
     """Ändert die Latitude, Longitude und Elevation eines gegebenen Routenpunktes
  
     Args:
-        id (int): ID des zu bearbeitenden Routenpunkte
+        id (int): ID der zu bearbeitenden Routenpunkte
         lat (float): Latitude
         lon (float): Longitude
         ele (float): Elevation
@@ -133,14 +133,14 @@ def edit(id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
         gpx: Bearbeitete GPX-Daten
     """
     
-    rtepts = _get_rtepts(input_gpx)
+    rtepts = _get_rtepts(id, input_gpx)
 
     if not (0 <= id < len(rtepts)):
         print_color("Error 204: Routenpunkt nicht vorhanden!")
         return input_gpx
     
     # Suchen des bestimmten Elements "rtept"
-    rpt = input_gpx.etree.findall("{*}rte/{*}rtept")[id]
+    rpt = rtepts.findall("{*}rtept")[id]
     
     # Ändern der Latitude und Longitude, über die Attribute "lat" und "lon"
     if lat is not None:
@@ -161,9 +161,34 @@ def edit(id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
     
     return input_gpx
 
-def edit_startpoint(input_gpx: gpx) -> gpx:
+def print_startpoint(id: int, input_gpx: gpx) -> None:
+    """Gibt den Startpunkt einer geschlossenen Route aus.
+
+    Args:
+        id (int): Index der Route in der Liste
+        input_gpx (gpx): Daten der GPX-Datei
+    """
+    
+    rtepts = _get_rtepts(input_gpx)
+    
+    if not (0 <= id < len(rtepts)):
+        print_color("Error 204: Routenpunkt nicht vorhanden!")
+        return
+    
+    
+    startpoint = rtepts[id]
+
+    
+    print_color("Momentaner Startpunkt")
+    print_color("   ID   |  Latitude  |  Longitude  |  Elevation")
+    print_color("--------|------------|-------------|-------------")
+    print_color(f"  {id:04}  |  {startpoint.get('lat', 'N/A'):9.6f} |  {startpoint.get('lon', 'N/A'):9.6f}  | {startpoint.findtext('{*}ele', 'N/A'):9.6f}")
+
+    
+
+def edit_startpoint(lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
     """Ändert den Startpunkt einer geschlossenen Route.
- 
+
     Args:
         lat (float): Neue Breitengrad-Koordinate für den Startpunkt
         lon (float): Neue Längengrad-Koordinate für den Startpunkt
@@ -175,20 +200,33 @@ def edit_startpoint(input_gpx: gpx) -> gpx:
     """
     
     rtepts = _get_rtepts(input_gpx)
-    
-    if not rtepts:
-        print_color("Error: Keine Routenpunkte vorhanden!")
-        return input_gpx
 
-    # Das erste "rtept"-Element auswählen, um den Startpunkt zu ändern
-    startpoint = input_gpx.etree.find("{*}rte/{*}rtept")
-    
-    # Überprüfen, ob ein Startpunkt vorhanden ist
-    if startpoint is None:
-        print_color("Error: Kein Startpunkt vorhanden!")
+    if not rtepts:
+        print_color("Error: No route points found!")
         return input_gpx
     
-    # Ändern der Breiten- und Längengrade des Startpunkts
-    startpoint.set("lat", str(lat))
-    startpoint.set
+    # Auswählen des ersten Routenpunktes
+    startpoint = rtepts[0]
+   
+    # Editen von lat und lon
+    if lat is not None:
+        print(f"Neue Breitengrad-Koordinate für den Startpunkt: {lat}")
+        startpoint.set("lat", str(lat))
+        
+    if lon is not None:
+        print(f"Neue Längengrad-Koordinate für den Startpunkt: {lon}")
+        startpoint.set("lon", str(lon))
+    
+    if ele is not None:
+        print(f"Neue Höhenangabe für den Startpunkt: {ele}")
+        ele_element = startpoint.find("{*}ele")
+        if ele_element is not None:
+            ele_element.text = str(ele)
+        else:
+            # Erstellen des Child-Elements "ele"
+            ele_element = etree.Element("ele")
+            ele_element.text = str(ele)
+            startpoint.append(ele_element)
+    
+    return input_gpx
 
