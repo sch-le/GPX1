@@ -1,2 +1,5 @@
 src/gpx1/__pycache__/
 data/output.gpx
+build
+src/gpx1.spec
+src/dist/gpx1

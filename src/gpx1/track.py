@@ -69,11 +69,11 @@ def print_list_trksegs(trk, input_gpx: gpx) -> None:
     if not (0 <= trk < len(trks)):
         return
     
-    print_color("   Tracksegmente   ")
-    print_color("-------------------")
+    print_color(" Tracksegmente | Trackpoints   ")
+    print_color("---------------|---------------")
     
-    for id, _ in enumerate(trks[trk][1]):
-        print_color(f"  {id:4}  ")
+    for id, trkseg in enumerate(trks[trk][1]):
+        print_color(f"  {id:4}         |  {len(trkseg):5}        ")
 
 def print_list_trkpts(trk, trkseg, input_gpx: gpx) -> None:
     """Prints a list of all trackpoints with their corresponding latitude, longitude, and optional elevation.
@@ -86,7 +86,7 @@ def print_list_trkpts(trk, trkseg, input_gpx: gpx) -> None:
     trks = _get_trks(input_gpx)
     
     if not (0 <= trkseg < len(trks[trk][1])):
-        print("Error 201: Tracksegment ausserhalb des gültigen Bereichs!")
+        print_color("Error 201: Tracksegment ausserhalb des gültigen Bereichs!")
         return
     
     print_color("   ID   |  Latitude  |  Longitude  |  Elevation  ")
@@ -95,9 +95,9 @@ def print_list_trkpts(trk, trkseg, input_gpx: gpx) -> None:
     # Print trackpoint information in list form
     for id, trkpt in enumerate(trks[trk][1][trkseg]):
         if trkpt[2] != "":
-            print(f"  {id:04}  |  {trkpt[0]:9.6f} |  {trkpt[1]:9.6f}  | {trkpt[2]:9.6f}")
+            print_color(f"  {id:04}  |  {trkpt[0]:9.6f} |  {trkpt[1]:9.6f}  | {trkpt[2]:9.6f}")
         else:
-            print(f"  {id:04}  |  {trkpt[0]:9.6f} |  {trkpt[1]:9.6f}  | {trkpt[2]}")
+            print_color(f"  {id:04}  |  {trkpt[0]:9.6f} |  {trkpt[1]:9.6f}  | {trkpt[2]}")
 
 def get_count(input_gpx: gpx) -> int:
     """Returns the number of tracks/tracksegments/trackpoints in the file.
@@ -127,7 +127,7 @@ def edit(trk_id: int, trkseg_id: int, trkpt_id: int, lat: float, lon: float, ele
     trks = _get_trks(input_gpx)
 
     if not (0 <= trkpt_id < len(trks[trk_id][1][trkseg_id])):
-        print("Error 201: Tracksegment ausserhalb des gültigen Bereichs!")
+        print_color("Error 201: Tracksegment ausserhalb des gültigen Bereichs!")
         return
     
     # Find the specific "trkpt" element
