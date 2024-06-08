@@ -30,7 +30,7 @@ def _get_wpts(input_gpx: gpx) -> list:
         lat = float(wpt.get("lat"))
         lon = float(wpt.get("lon"))    
         
-        # Hinzufügen der optioanlen Elevation as Child-Element "ele", falls dieses vorhanden ist
+        # Hinzufügen der optioanlen Elevation aus Child-Element "ele", falls dieses vorhanden ist
         ele = ""
         if wpt.find("{*}ele") is not None:
             ele = float(wpt.find("{*}ele").text)

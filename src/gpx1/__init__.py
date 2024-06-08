@@ -131,9 +131,10 @@ def main():
 
                     if Funktionauswahl == "1":
                         cls()
+                        track.print_list_trks(input_gpx)
                         print_color("ID:(Integer)")
-                        id = input_type(int)
-                        track.print_list_trksegs(id, input_gpx)  
+                        trk = input_type(int)
+                        track.print_list_trksegs(trk, input_gpx)  
                         print_color("")
                         print_color("1. Auswahl eines Trackssegments")
                         print_color("0. Hauptmenü")
@@ -141,20 +142,31 @@ def main():
                         Funktionauswahl = input()
                         
                         if Funktionauswahl == "1":
-                            ...
+                            cls()
+                            track.print_list_trksegs(trk, input_gpx) 
+                            print_color("ID:(Integer)")
+                            trkseg = input_type(int)
+                            cls()
+                            track.print_list_trkpts(trk, trkseg, input_gpx)
+                            print_color("1. Bearbeiten eines Trackpoints")
+                            print_color("0. Hauptmenü")
                             
-                    #if Funktionauswahl == "1":
-                    #    print_color("Geben sie bitte folgende Daten an")
-                    #    print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
-                    #    print_color("ID:(Integer)")
-                    #    id = input_type(int)
-                    #    print_color("Latitute:(Float)")
-                    #    lat = input_type(float)
-                    #    print_color("longitut:(Float)")
-                    #    lon = input_type(float)
-                    #    print_color("Elevation:(Float)")
-                    #    ele = input_type(float)
-                    #    track.edit(id, lat, lon, ele, input_gpx)
+                            Funktionauswahl = input()
+                            
+                            if Funktionauswahl == "1":
+                                cls()
+                                print_color("Geben sie bitte folgende Daten an")
+                                print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
+                                print_color("ID:(Integer)")
+                                trkpnt = input_type(int)
+                                print_color("Latitute:(Float)")
+                                lat = input_type(float)
+                                print_color("longitut:(Float)")
+                                lon = input_type(float)
+                                print_color("Elevation:(Float)")
+                                ele = input_type(float)
+                                track.edit(trk, trkseg, trkpnt, lat, lon, ele, input_gpx)
+                                input()
 
                     elif Funktionauswahl == "0":
                         break
