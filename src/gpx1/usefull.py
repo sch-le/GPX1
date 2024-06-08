@@ -62,8 +62,12 @@ def print_color (text):
     count = count + 1
 
 def confirm():
+    """Gibt Text mit Aufforderung zur Bestätigung aus und wartet dann auf Tastendruck.
+    """
     print_color("Bestätigen Sie mit beliebiger Taste.")
     input()
 
 def cls():
+    """Leert den Inhalt der Konsole.
+    """
     os.system('cls' if os.name=='nt' else 'clear')
