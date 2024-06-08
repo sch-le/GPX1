@@ -162,46 +162,57 @@ def main():
                     else:
                         print_color("Unzulässige Eingabe")
 
-            # Untermenu Routs
+            # Untermenu Routen
             elif Modulabfrage == "3":
-                
-
                 while True:
-                    #Print_list einfügen
-                    print_color("1. Bearbeiten eines Routpoints")
-                    print_color("2. Startpunkt festlegen")
+                    cls()
+                    routs.print_rtes(input_gpx)
+                    print_color("")
+                    print_color("1. Auswahl einer Route")                    
                     print_color("0. Hauptmenü")
-                    Funktionauswahl = input()
-                    if Funktionauswahl == "1":
-                        print_color("Geben sie bitte folgende Daten an")
-                        print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
-                        print_color("ID:(Integer)")
-                        id = input_type(int)
-                        print_color("Latitute:(Float)")
-                        lat = input_type(float)
-                        print_color("longitut:(Float)")
-                        lon = input_type(float)
-                        print_color("Elevation:(Float)")
-                        ele = input_type(float)
-                        routs.edit(id, lat, lon, ele, input_gpx)
                     
-                    elif Funktionauswahl == "2":
-                        print_color("Geben sie bitte folgende Daten an")
-                        print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
-                        print_color("Latitute:(Float)")
-                        lat = input_type(float)
-                        print_color("longitut:(Float)")
-                        lon = input_type(float)
-                        print_color("Elevation:(Float)")
-                        ele = input_type(float)
-                        waypoints.edit(id, lat, lon, ele, input_gpx)
+                    Funktionauswahl = input()
 
-                    elif Funktionauswahl == "0":
-                        break
+                    if Funktionauswahl == "1":
+                        cls()
+                        routs.print_rtes(input_gpx)
+                        print_color("[id] Wählen sie einer der Aufgelisteten Routen!")
+                        id = input_type(int)
+                        routs._get_rtepts(id, input_gpx)
+                                           
+                        print_color("1. Bearbeiten von Routenpunkten")
+                        print_color("2. Bearbeiten von Startpunkt")                    
+                        print_color("0. Hauptmenü")
+                        id = input_type(int)
+                        
+                        Funktionauswahl = input()
 
-                    else:
-                        print_color("Unzulässige Eingabe")
-                
+                        if Funktionauswahl == "1":
+                            routs.print_list_rtepts(input_gpx)
+                        
+                            print_color("\nGeben sie bitte folgende Daten an")
+                            print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
+                        
+                            # Abfragen der Routepoint Informationen
+                            print_color("ID:(Integer)")
+                            id = input_type(int)
+                            print_color("Latitute:(Float)")
+                            lat = input_type(float)
+                            print_color("longitut:(Float)")
+                            lon = input_type(float)
+                            print_color("Elevation:(Float)")
+                            ele = input_type(float)
+
+                            routs.edit(id, lat, lon, ele, input_gpx)
+                        
+                        elif Funktionauswahl == "2":
+                            
+                            routs.edit_startpoint(input_gpx)
+                        
+                        elif Funktionauswahl == "0":
+                            break
+            
+                           
             elif Modulabfrage == "4":
                 print_color("Name:")
                 print_color("Beschreibung")
