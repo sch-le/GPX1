@@ -5,7 +5,7 @@ Autor: Leon Schuck
 Erstellt: 27.05.2024
 """
 
-output_path = "../data/output.gpx"
+output_path = "output.gpx"
 
 # Klassen zum speicher von GPX-Daten und XML-Deklaration
 class gpx:
