@@ -3,3 +3,9 @@ __init__:
 
 Routs:
     - fertigstellen
+
+Allgemein:
+    - Latitude, Longitude min max Werte festlegen
+
+Metadaten:
+    - hinzufügen

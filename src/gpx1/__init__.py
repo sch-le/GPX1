@@ -7,14 +7,15 @@ Erstellt: 19.05.2024
 
 import sys
 
-#from . import parser
-from gpx1.config import gpx
-from . import waypoints
-from . import routs
-from . import track
+from gpx1.config import gpx, version
+from gpx1.usefull import input_type, print_color, cls, confirm
 from . import file_management
 from . import parser
-from gpx1.usefull import input_type, print_color, cls, confirm
+from . import waypoints
+from . import routs
+from . import tracks
+
+
 
 def main():
     """Hauptmenu, in dem die GPX-Datei geladen oder das Programm beendet werden kann.
@@ -25,7 +26,7 @@ def main():
         # Leeren der Konsole
         cls()   
         
-        print_color("Willkommen im GPX-Editor")
+        print_color("GPX-Editor {version}")
         print_color("Bitte wählen Sie aus folgenden Optionen aus:")
         print_color("")
         print_color("1: Auswahl einer GPX Datei")
@@ -66,7 +67,7 @@ def gpx_menu(input_gpx: gpx):
         cls() 
         
         print_color(f"Anzahl Waypoints: {waypoints.get_count(input_gpx)}")
-        print_color(f"Anzahl Tracks: {track.get_count(input_gpx)}")
+        print_color(f"Anzahl Tracks: {tracks.get_count(input_gpx)}")
         print_color(f"Anzahl Routs: {routs.get_count(input_gpx)}")
         print_color("")
         
@@ -212,7 +213,7 @@ def track_menu(input_gpx: gpx):
         # Leeren der Konsole
         cls() 
                         
-        track.print_list_trks(input_gpx)    # Ausgeben einer Liste mit allen Tracks
+        tracks.print_list_trks(input_gpx)    # Ausgeben einer Liste mit allen Tracks
         print_color("")
         
         print_color("1. Auswahl eines Tracks")
@@ -230,7 +231,7 @@ def track_menu(input_gpx: gpx):
             # Leeren der Konsole
             cls()
             
-            track.print_list_trks(input_gpx)    # Ausgeben einer Liste mit allen Tracks
+            tracks.print_list_trks(input_gpx)    # Ausgeben einer Liste mit allen Tracks
             print_color("")
             
             # Abfrage des Tracks 
@@ -241,7 +242,7 @@ def track_menu(input_gpx: gpx):
                 # Leeren der Konsole
                 cls()
                 
-                track.print_list_trksegs(trk, input_gpx)    # Ausgabe einer Liste mit allen Tracksegmenten
+                tracks.print_list_trksegs(trk, input_gpx)    # Ausgabe einer Liste mit allen Tracksegmenten
                 print_color("")
                 print_color("1. Auswahl eines Trackssegments")
                 print_color("0. Zurück")
@@ -257,7 +258,7 @@ def track_menu(input_gpx: gpx):
                     # Leeren der Konsole
                     cls()
                     
-                    track.print_list_trksegs(trk, input_gpx)    # Ausgabe einer Liste mit allen Tracksegmenten
+                    tracks.print_list_trksegs(trk, input_gpx)    # Ausgabe einer Liste mit allen Tracksegmenten
                     print_color("")
                     
                     # Abfrage des Tracksegments 
@@ -268,7 +269,7 @@ def track_menu(input_gpx: gpx):
                         # Leeren der Konsole
                         cls()
                         
-                        track.print_list_trkpts(trk, trkseg, input_gpx) # Ausgeben einer Liste mit allen Trackpoints
+                        tracks.print_list_trkpts(trk, trkseg, input_gpx) # Ausgeben einer Liste mit allen Trackpoints
                         print_color("")
                         
                         print_color("1. Bearbeiten eines Trackpoints")
@@ -283,7 +284,7 @@ def track_menu(input_gpx: gpx):
                         # Auswahl eines Trackpoints
                         if auswahl == "1":
                             cls()
-                            track.print_list_trkpts(trk, trkseg, input_gpx)
+                            tracks.print_list_trkpts(trk, trkseg, input_gpx)
                             print_color("")
                             print_color("Geben sie bitte folgende Daten an")
                             print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
@@ -295,7 +296,7 @@ def track_menu(input_gpx: gpx):
                             lon = input_type(float)
                             print_color("Elevation:(Float)")
                             ele = input_type(float)
-                            track.edit(trk, trkseg, trkpnt, lat, lon, ele, input_gpx)                   
+                            tracks.edit(trk, trkseg, trkpnt, lat, lon, ele, input_gpx)                   
 
 def rout_menu(input_gpx: gpx):
     """Untermenu zum Auswählen der Rout-Funktionen

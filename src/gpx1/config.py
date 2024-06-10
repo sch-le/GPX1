@@ -5,6 +5,10 @@ Autor: Leon Schuck
 Erstellt: 27.05.2024
 """
 
+# Version
+version = "V0.75"
+
+# Pfad und Name mit dem die Datei ausgegeben wird
 output_path = "output.gpx"
 
 # Klassen zum speicher von GPX-Daten und XML-Deklaration
