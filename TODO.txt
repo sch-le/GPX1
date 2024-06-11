@@ -3,9 +3,13 @@ __init__:
 
 Routs:
     - fertigstellen
-
-Allgemein:
     - Latitude, Longitude min max Werte festlegen
+
+Tracks:
+    - Kommentare -> Beispiel oben mit Liste
+
+Allgmein:
+    - Kommentare überarbeiten evtl wpt_id trk_id trkseg_id ...
 
 Metadaten:
     - hinzufügen

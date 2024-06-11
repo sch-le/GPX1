@@ -2,13 +2,13 @@
 
 (c) PaFeLe²KyLuKa-Industries
 
-Beschreibung: Funktionen zum Auslesen und Bearbeiten der Waypoints
+Beschreibung: Funktionen zum Auslesen und Bearbeiten und Berechnugen von Waypoint-Informationen
 Autor: Leon Schuck
 Erstellt: 01.06.2024
 """
 
 from gpx1.config import gpx
-from gpx1.usefull import print_color, confirm
+from gpx1.usefull import print_color, print_error
 import lxml
 
 def _get_wpts(input_gpx: gpx) -> list:
@@ -21,7 +21,11 @@ def _get_wpts(input_gpx: gpx) -> list:
         list: Liste mit Latitude, Longitude, Elevation
     """
     
-    wpts = []
+    # Liste mit allen Waypoints und dazugehöriger Latitude, Longitude und Elevation
+    # Format: [[wpt1_lat, wpt1_lon, wpt1_ele],
+    #          [wpt2_lat, wpt2_lon, wpt2_ele], ... 
+    #          [wptn_lat, wptn_lon, wptn_ele]]
+    wpts = []   
     
     # Suchen aller Waypoints in GPX-Datei
     for wpt in input_gpx.etree.findall("{*}wpt"):   # Loop über alle "wpt" Elemente
@@ -35,6 +39,7 @@ def _get_wpts(input_gpx: gpx) -> list:
         if wpt.find("{*}ele") is not None:
             ele = float(wpt.find("{*}ele").text)
         
+        # Hinzufügen der Daten zur Liste
         wpts.append([lat, lon, ele])
     
     return wpts
@@ -46,18 +51,19 @@ def print_list(input_gpx: gpx) -> None:
         input_gpx (gpx): Daten der GPX-Datei
     """
     
-    print_color("   ID   |  Latitude  |  Longitude  |  Elevation")
-    print_color("--------|------------|-------------|-------------")
-    
     # Erstellen einer Liste mit allen Waypoints
     wpts = _get_wpts(input_gpx)
+        
+    print_color("   ID   |  Latitude  |  Longitude  |  Elevation  ")
+    print_color("--------|------------|-------------|-------------")
     
     # Ausgabe der Waypoint Informationen in Listenform
     for id, wpt in enumerate(wpts):
+        # Falls optionale Elevation-Information enthalten ist, wird diese mit ausgegeben
         if wpt[2] != "":
-            print_color(f"  {id:04}  |  {wpt[0]:9.6f} |  {wpt[1]:9.6f}  | {wpt[2]:9.6f}")
+            print_color(f"  {id:04}  |  {wpt[0]:9.6f} |  {wpt[1]:9.6f}  | {wpt[2]:9.6f}  ")
         else:
-            print_color(f"  {id:04}  |  {wpt[0]:9.6f} |  {wpt[1]:9.6f}  | {wpt[2]} ")
+            print_color(f"  {id:04}  |  {wpt[0]:9.6f} |  {wpt[1]:9.6f}  |             ")
 
 def get_count(input_gpx: gpx) -> int:
     """Gibt die Anzahl der in der Datei vorkommenden Waypoints zurück
@@ -66,8 +72,10 @@ def get_count(input_gpx: gpx) -> int:
         input_gpx (gpx): _description_
     """
     
+    # Erstellen einer Liste mit allen Waypoints
     wpts = _get_wpts(input_gpx)
     
+    # Gibt die Anzahl der Elemente (Waypoints) zurück
     return len(wpts)
 
 def calc_elevation(id1: int, id2: int, input_gpx) -> float:
@@ -81,26 +89,31 @@ def calc_elevation(id1: int, id2: int, input_gpx) -> float:
         float: Höhendifferenz
     """
     
+    # Erstellen einer Liste mit allen Waypoints
     wpts = _get_wpts(input_gpx)
     
+    # Überprüfung ob Waypoint 1 existiert
     if not (0 <= id1 <= len(wpts)):
-        print_color("Error 200: Waypoint 1 nicht vorhanden!")
+        print_error("Error 200: Waypoint 1 nicht vorhanden!")
         return
-    
+
+    # Überprüfung ob Waypoint 1 existiert
     if not (0 <= id2 <= len(wpts)):
-        print_color("Error 201: Waypoint 2 nicht vorhanden!")
+        print_error("Error 201: Waypoint 2 nicht vorhanden!")
         return
     
+    # Überprüfung ob in Waypoint 1 die Elevation gespeichert ist (diese ist optional)
     if wpts[id1][2] == "":
-        print_color("Error 202: Keine Elevation Informationen zu Waypoint 1 vorhanden!")
+        print_error("Error 202: Keine Elevation Informationen zu Waypoint 1 vorhanden!")
         return
     
+    # Überprüfung ob in Waypoint 2 die Elevation gespeichert ist (diese ist optional)
     if wpts[id2][2] == "":
-        print_color("Error 203: Keine Elevation Informationen zu Waypoint 2 vorhanden!")
+        print_error("Error 203: Keine Elevation Informationen zu Waypoint 2 vorhanden!")
         return
     
-    ele_diff = float(wpts[id2][2]) - float(wpts[id1][2])
-    return(ele_diff)
+    # Berechnung und Rückgabe der Höhendifferenz
+    return(float(wpts[id2][2]) - float(wpts[id1][2]))
     
 def edit(id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
     """Ändert die Latitude, Longitude und Elevation eines gegebenen Waypoints
@@ -116,11 +129,22 @@ def edit(id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
         gpx: Bearbeitete GPX-Daten
     """
     
+    # Erstellen einer Liste mit allen Waypoints
     wpts = _get_wpts(input_gpx)
 
+    # Überprüfung ob Waypoint existiert
     if not (0 <= id < len(wpts)):
-        print_color("Error 204: Waypoint nicht vorhanden!")
-        confirm()
+        print_error("Error 204: Waypoint nicht vorhanden!")
+        return
+    
+    # Bereichsüberprüfung der Latitude
+    if not (0 <= lat <= 90):
+        print_error("Error 205: Latitude außerhalb des erlaubten Bereichs!  0 <= Latitude <= 90")
+        return
+    
+    # Bereichsüberprüfung der Longitude
+    if not (0 <= lon <= 180):
+        print_error("Error 206: Latitude außerhalb des erlaubten Bereichs! 0 <= Longitude <= 180")
         return
     
     # Suchen des bestimmten Elements "wpt"
@@ -129,10 +153,10 @@ def edit(id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
     # Ändern der Latitude und Longitude, über die Child-Elemente "lat" und "lon"
     if lat is not None:
         wpt.set("lat", str(lat))
-        
     if lon is not None:
         wpt.set("lon", str(lon))
     
+    # Ändern bzw. Erstellen des Child-Elements für Elevation
     if ele is not None:
         try:
             # Ändern der Elevation über Child-Element "ele", falls dieses vorhanden ist

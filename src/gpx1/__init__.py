@@ -26,7 +26,7 @@ def main():
         # Leeren der Konsole
         cls()   
         
-        print_color("GPX-Editor {version}")
+        print_color(f"GPX-Editor {version}")
         print_color("Bitte wählen Sie aus folgenden Optionen aus:")
         print_color("")
         print_color("1: Auswahl einer GPX Datei")
@@ -130,25 +130,35 @@ def gpx_menu(input_gpx: gpx):
             print_color("Datei wurde unter ... gespeichert!")
             confirm()
 
-def waypoint_menu(input_gpx: gpx):
-    """_summary_
+def waypoint_menu(input_gpx: gpx) -> gpx:
+    """Untermenu zum Auswählen der Waypoints Funktionen
 
     Args:
-        input_gpx (gpx): _description_
+        input_gpx (gpx): Daten der GPX-Datei
+
+    Returns:
+        gpx: (geänderete) Daten der GPX-Datei
     """
     
     while True:
         
         # Leeren der Konsole
         cls() 
-                        
+        
+        # Falls keine Waypoints enthalten sind, gelangt man wieder ins vorherige Menu
+        if waypoints.get_count(input_gpx) == 0:
+            print_color("In Dieser Datei sind keine Waypoints enthalten.")
+            confirm()
+            return input_gpx
+               
+        # Ausgabe einer Liste mit allen Waypoints und Optionen zum fortfahren
         waypoints.print_list(input_gpx)
         print("")
         print_color("1. Bearbeiten von Waypoints")
         print_color("2. Höhendifferenz zw. zwei Waypoints berechnen")
         print_color("0. Zurück")
         
-        auswahl = input()
+        auswahl = input()   # Abfragen der Optionen
         
         # Zurück
         if auswahl == "0":
@@ -171,7 +181,7 @@ def waypoint_menu(input_gpx: gpx):
             id = input_type(int)
             print_color("Latitute:(Float)")
             lat = input_type(float)
-            print_color("longitut:(Float)")
+            print_color("Longitut:(Float)")
             lon = input_type(float)
             print_color("Elevation:(Float)")
             ele = input_type(float)
@@ -201,25 +211,34 @@ def waypoint_menu(input_gpx: gpx):
             print_color(f"Höhendifferenz: {ele_diff:9.6f}")
             confirm()
 
-def track_menu(input_gpx: gpx):
+def track_menu(input_gpx: gpx) -> gpx:
     """Untermenu zum Auswählen der Track Funktionen
 
     Args:
         input_gpx (gpx): Daten der GPX-Datei
-    """
-    
+
+    Returns:
+        gpx: (geänderte )Daten der GPX-Datei
+    """    
+
     while True:
         
         # Leeren der Konsole
         cls() 
-                        
-        tracks.print_list_trks(input_gpx)    # Ausgeben einer Liste mit allen Tracks
+         
+        # Falls keine Tracks enthalten sind, gelangt man wieder ins vorherige Menu
+        if tracks.get_count(input_gpx) == 0:
+            print_color("In Dieser Datei sind keine Tracks enthalten.")
+            confirm()
+            return input_gpx
+               
+        # Ausgeben einer Liste mit allen Tracks und Optionen zum fortfahren                
+        tracks.print_list_trks(input_gpx)    
         print_color("")
-        
         print_color("1. Auswahl eines Tracks")
         print_color("0. Zurück")
         
-        auswahl = input()
+        auswahl = input()   # Abfragen der Optionen
         
         # Zurück
         if auswahl == "0":
@@ -235,18 +254,21 @@ def track_menu(input_gpx: gpx):
             print_color("")
             
             # Abfrage des Tracks 
-            print_color("ID:(Integer)")
+            print_color("Track-ID:(Integer)")
             trk = input_type(int)
             
             while True:
                 # Leeren der Konsole
                 cls()
                 
-                tracks.print_list_trksegs(trk, input_gpx)    # Ausgabe einer Liste mit allen Tracksegmenten
+                # Ausgabe einer List mit allen Tracksegmenten, bzw. Abbruch der Schleife, falls Track nicht vorhanden
+                if tracks.print_list_trksegs(trk, input_gpx) is False:
+                    break
+                
+                #Abfrage der Option zum Fortfahren
                 print_color("")
                 print_color("1. Auswahl eines Trackssegments")
                 print_color("0. Zurück")
-                
                 auswahl = input()
                 
                 # Zurück
@@ -258,23 +280,26 @@ def track_menu(input_gpx: gpx):
                     # Leeren der Konsole
                     cls()
                     
-                    tracks.print_list_trksegs(trk, input_gpx)    # Ausgabe einer Liste mit allen Tracksegmenten
-                    print_color("")
+                    # Erneute Ausgabe der Tracksegmente
+                    tracks.print_list_trksegs(trk, input_gpx)
                     
                     # Abfrage des Tracksegments 
-                    print_color("ID:(Integer)")
+                    print_color("")
+                    print_color("Tracksegment-ID:(Integer)")
                     trkseg = input_type(int)
                     
                     while True:
                         # Leeren der Konsole
                         cls()
                         
-                        tracks.print_list_trkpts(trk, trkseg, input_gpx) # Ausgeben einer Liste mit allen Trackpoints
-                        print_color("")
+                        # Ausgeben einer Liste mit allen Trackpoints, bzw. Abbruch der Schleife, falls Segment nicht vorhanden
+                        if tracks.print_list_trkpts(trk, trkseg, input_gpx) is False:
+                            break
                         
+                        # Abfrage der Option zum Fortfahren
+                        print_color("")
                         print_color("1. Bearbeiten eines Trackpoints")
                         print_color("0. Zurück")
-                        
                         auswahl = input()
                         
                         # Zurück
@@ -283,7 +308,10 @@ def track_menu(input_gpx: gpx):
                         
                         # Auswahl eines Trackpoints
                         if auswahl == "1":
+                            # Leeren der Konsole
                             cls()
+                            
+                            # Ausgabe einer Liste mit Trackpoints und Abfrage von Latitude, Longitude und Elevation
                             tracks.print_list_trkpts(trk, trkseg, input_gpx)
                             print_color("")
                             print_color("Geben sie bitte folgende Daten an")
@@ -292,10 +320,12 @@ def track_menu(input_gpx: gpx):
                             trkpnt = input_type(int)
                             print_color("Latitute:(Float)")
                             lat = input_type(float)
-                            print_color("longitut:(Float)")
+                            print_color("Longitut:(Float)")
                             lon = input_type(float)
                             print_color("Elevation:(Float)")
                             ele = input_type(float)
+                            
+                            # Ändern des Trackpoints
                             tracks.edit(trk, trkseg, trkpnt, lat, lon, ele, input_gpx)                   
 
 def rout_menu(input_gpx: gpx):
