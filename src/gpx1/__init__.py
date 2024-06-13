@@ -320,7 +320,7 @@ def track_menu(input_gpx: gpx) -> gpx:
                             trkpnt = input_type(int)
                             print_color("Latitute:(Float)")
                             lat = input_type(float)
-                            print_color("Longitut:(Float)")
+                            print_color("Longitude:(Float)")
                             lon = input_type(float)
                             print_color("Elevation:(Float)")
                             ele = input_type(float)
@@ -339,13 +339,22 @@ def rout_menu(input_gpx: gpx):
         
         # Leeren der Konsole
         cls()
+
+        # Falls keine Routen enthalten sind, gelangt man wieder ins vorherige Menu
+        if routs.get_count(input_gpx) == 0:
+            print_color("In Dieser Datei sind keine Routen enthalten.")
+            confirm()
+            return input_gpx
         
-        routs.print_rtes(input_gpx)
+        # Ausgeben einer Liste mit allen Routen und Optionen zum fortfahren                
+        routs.print_rtes(input_gpx)    
         print_color("")
-        print_color("1. Auswahl einer Route")                    
+        print_color("1. Auswahl einer Route")
         print_color("0. Hauptmenü")
+
+        # Abfragen der Optionen
+        auswahl = input()   
         
-        auswahl = input()
 
         # Zurück
         if auswahl == "0":
@@ -353,59 +362,78 @@ def rout_menu(input_gpx: gpx):
 
         # Auswahl einer Route
         elif auswahl == "1":
+            
             cls()
-            routs.print_rtes(input_gpx)
-            print_color("[id] Wählen sie eine der aufgelisteten Routen!")
-            route_id = input_type(int)
-            rtepts = routs._get_rtepts(route_id, input_gpx)
-                        
-            print_color("1. Bearbeiten von Routenpunkten")
-            print_color("2. Bearbeiten von Startpunkt")                    
-            print_color("0. Hauptmenü")
+            # Ausgeben einer Liste mit allen Routen
+            routs.print_rtes(input_gpx)     
+            print_color("")
             
-            auswahl = input()
-
-            if auswahl == "0":
-                break
-                       
-            elif auswahl == "1":
+            # Abfrage des Tracks 
+            print_color("Track-ID:(Integer)")
+            rte = input_type(int)
+            
+            while True:
+                # Leeren der Konsole
                 cls()
-                routs.print_list_rtepts(route_id,input_gpx)
-            
-                print_color("\nGeben sie bitte folgende Daten an")
-                print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
-            
-                # Abfragen der Routepoint Informationen
-                print_color("ID:(Integer)")
-                rpt_id = input_type(int)
-                print_color("Latitute:(Float)")
-                lat = input_type(float)
-                print_color("longitut:(Float)")
-                lon = input_type(float)
-                print_color("Elevation:(Float)")
-                ele = input_type(float)
-
-                routs.edit(rpt_id, lat, lon, ele, input_gpx)
-            
-            # Auswah
-            elif auswahl == "2":
-                cls()
-
-                routs.print_startpoint(route_id, input_gpx)
                 
-                print_color("\nGeben sie bitte folgende Daten an")
-                print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
-            
-                # Abfragen der Routepoint Informationen
-                print_color("ID:(Integer)")
-                rpt_id = input_type(int)
-                print_color("Latitute:(Float)")
-                lat = input_type(float)
-                print_color("longitut:(Float)")
-                lon = input_type(float)
-                print_color("Elevation:(Float)")
-                ele = input_type(float)
+                # Ausgabe einer List mit allen Routenpunkten, bzw. Abbruch der Schleife, falls Route nicht vorhanden
+                if routs.print_list_rtepts(rte, input_gpx) is False:
+                    break
                 
-                routs.edit_startpoint(lat, lon, ele, input_gpx)
+                #Abfrage der Option zum Fortfahren
+                print_color("")
+                print_color("1. Bearbeiten eines Routenpunktes")
+                print_color("2. Bearbeiten des Startpunktes")
+                print_color("0. Zurück")
+                
+                auswahl = input()
+                
+                # Zurück
+                if auswahl == "0":
+                    break
+                
+                # Auswahl eines Routenpunktes
+                if auswahl == "1":
+                    # Leeren der Konsole
+                    cls()
+                    
+                    # Ausgabe einer Liste mit Routenpunkten und Abfrage von Latitude, Longitude und Elevation
+                    routs.print_list_rtepts(rte, input_gpx)
+                    print_color("")
+                    print_color("Geben sie bitte folgende Daten an")
+                    print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
+                    print_color("ID:(Integer)")
+                    rtept = input_type(int)
+                    print_color("Latitute:(Float)")
+                    lat = input_type(float)
+                    print_color("Longitude:(Float)")
+                    lon = input_type(float)
+                    print_color("Elevation:(Float)")
+                    ele = input_type(float)
+                    
+                    # Ändern des Routenpunktes
+                    routs.edit(rte, rtept, lat, lon, ele, input_gpx)
+
+                # Ändern des Startpunktes
+                if auswahl == "2":
+                    # Leeren der Konsole
+                    cls()
+
+                    # Ausgabe einer Liste aller Routenpunkte
+                    routs.print_list_rtepts(rte, input_gpx)
+                    print_color("")
+                    print_color("Bitte wählen Sie aus der Liste einen Routenpunkt als neuen Startpunkt")
+                    print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
+                    print_color("ID:(Integer)")
+                    rtept = input_type(int)
+
+                    routs.edit_startpoint(rte, rtept, input_gpx)
+                    routs.print_list_rtepts(rte, input_gpx)
+                    
+
+
+
+                     
+
                 
             
