@@ -138,13 +138,13 @@ def edit(id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
         return
     
     # Bereichsüberprüfung der Latitude
-    if not (0 <= lat <= 90):
-        print_error("Error 205: Latitude außerhalb des erlaubten Bereichs!  0 <= Latitude <= 90")
+    if not (-90 <= lat <= 90):
+        print_error("Error 205: Latitude außerhalb des erlaubten Bereichs!  -90 <= Latitude <= 90")
         return
     
     # Bereichsüberprüfung der Longitude
-    if not (0 <= lon <= 180):
-        print_error("Error 206: Latitude außerhalb des erlaubten Bereichs! 0 <= Longitude <= 180")
+    if not (-180 <= lon <= 180):
+        print_error("Error 206: Latitude außerhalb des erlaubten Bereichs! -180 <= Longitude <= 180")
         return
     
     # Suchen des bestimmten Elements "wpt"

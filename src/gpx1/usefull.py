@@ -24,9 +24,9 @@ def input_type(type: str) -> any:
     while True:
         # Einlesen des Inputs
         input_str = input()
-        
+              
         # Falls Input None ist wird None zurückgegeben
-        if input_str is None:
+        if input_str == "":
             return None
 
         # Falls Input vom Typ int sein soll

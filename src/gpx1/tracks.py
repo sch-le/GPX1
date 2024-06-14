@@ -143,12 +143,12 @@ def edit(trk_id: int, trkseg_id: int, trkpt_id: int, lat: float, lon: float, ele
     
     # Bereichsüberprüfung der Latitude
     if not (0 <= lat <= 90):
-        print_error("Error 302: Latitude außerhalb des erlaubten Bereichs!  0 <= Latitude <= 90")
+        print_error("Error 302: Latitude außerhalb des erlaubten Bereichs!  -90 <= Latitude <= 90")
         return
     
     # Bereichsüberprüfung der Longitude
     if not (0 <= lon <= 180):
-        print_error("Error 303: Latitude außerhalb des erlaubten Bereichs! 0 <= Longitude <= 180")
+        print_error("Error 303: Latitude außerhalb des erlaubten Bereichs! -180 <= Longitude <= 180")
         return
     
     # Find the specific Waypoint
