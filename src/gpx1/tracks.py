@@ -101,9 +101,9 @@ def print_list_trkpts(trk: int, trkseg: int, input_gpx: gpx) -> None:
     # Print trackpoint information in list form
     for id, trkpt in enumerate(trks[trk][1][trkseg]):
         if trkpt[2] != "":
-            print_color(f"  {id:04}  |  {trkpt[0]:9.6f} |  {trkpt[1]:9.6f}  | {trkpt[2]:9.6f}")
-        else:
-            print_color(f"  {id:04}  |  {trkpt[0]:9.6f} |  {trkpt[1]:9.6f}  | {trkpt[2]}")
+            print_color(f"  {id: 4}  | {trkpt[0]: 10.6f} | {trkpt[1]: 11.6f} |  {trkpt[2]: 9.3f}  " ) 
+        else:                            
+            print_color(f"  {id: 4}  | {trkpt[0]: 10.6f} | {trkpt[1]: 11.6f} |             ")
             
     return True
 
@@ -142,12 +142,12 @@ def edit(trk_id: int, trkseg_id: int, trkpt_id: int, lat: float, lon: float, ele
         return
     
     # Bereichsüberprüfung der Latitude
-    if not (0 <= lat <= 90):
+    if not (-90 <= lat <= 90):
         print_error("Error 302: Latitude außerhalb des erlaubten Bereichs!  -90 <= Latitude <= 90")
         return
     
     # Bereichsüberprüfung der Longitude
-    if not (0 <= lon <= 180):
+    if not (-180 <= lon <= 180):
         print_error("Error 303: Latitude außerhalb des erlaubten Bereichs! -180 <= Longitude <= 180")
         return
     

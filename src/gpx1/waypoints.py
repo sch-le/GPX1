@@ -56,14 +56,14 @@ def print_list(input_gpx: gpx) -> None:
         
     print_color("   ID   |  Latitude  |  Longitude  |  Elevation  ")
     print_color("--------|------------|-------------|-------------")
-    
+                    #  |  50.71674 |
     # Ausgabe der Waypoint Informationen in Listenform
     for id, wpt in enumerate(wpts):
         # Falls optionale Elevation-Information enthalten ist, wird diese mit ausgegeben
         if wpt[2] != "":
-            print_color(f"  {id:04}  |  {wpt[0]:9.6f} |  {wpt[1]:9.6f}  | {wpt[2]:9.6f}  ")
-        else:
-            print_color(f"  {id:04}  |  {wpt[0]:9.6f} |  {wpt[1]:9.6f}  |             ")
+            print_color(f"  {id: 4}  | {wpt[0]: 10.6f} | {wpt[1]: 11.6f} |  {wpt[2]: 9.3f}  " ) 
+        else:                            
+            print_color(f"  {id: 4}  | {wpt[0]: 10.6f} | {wpt[1]: 11.6f} |             ")
 
 def get_count(input_gpx: gpx) -> int:
     """Gibt die Anzahl der in der Datei vorkommenden Waypoints zurück

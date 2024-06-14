@@ -90,10 +90,10 @@ def print_list_rtepts(rte: int, input_gpx: gpx) -> None:
     # Ausgabe der Routenpunkt Informationen in Listenform
     for id, rtept in enumerate(rtes[rte][1]):
         if rtept[2] != "":
-            print_color(f"  {id:04}  |  {rtept[0]:9.6f} |  {rtept[1]:9.6f}  | {rtept[2]:9.6f}")
-        else:
-            print_color(f"  {id:04}  |  {rtept[0]:9.6f} |  {rtept[1]:9.6f}  | {rtept[2]}")
-            
+            print_color(f"  {id: 4}  | {rtept[0]: 10.6f} | {rtept[1]: 11.6f} |  {rtept[2]: 9.3f}  " ) 
+        else:                            
+            print_color(f"  {id: 4}  | {rtept[0]: 10.6f} | {rtept[1]: 11.6f} |             ")
+              
     return True
 
 def get_count(input_gpx: gpx) -> int:
@@ -129,12 +129,12 @@ def edit(rte_id: int, rtept_id: int, lat: float, lon: float, ele: float, input_g
         return
     
     # Bereichsüberprüfung der Latitude
-    if not (0 <= lat <= 90):
+    if not (-90 <= lat <= 90):
         print_error("Error 302: Latitude außerhalb des erlaubten Bereichs!  0 <= Latitude <= 90")
         return
     
     # Bereichsüberprüfung der Longitude
-    if not (-10 <= lon <= 180):
+    if not (-180 <= lon <= 180):
         print_error("Error 303: Longitude außerhalb des erlaubten Bereichs! 0 <= Longitude <= 180")
         return
     
