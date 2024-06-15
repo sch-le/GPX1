@@ -145,16 +145,16 @@ def edit(wpt_id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx
     
     # Ändern der Latitude und Longitude, über die Child-Elemente "lat" und "lon"
     if lat is not None:
-        # Bereichsüberprüfung der Longitude
-        if not (-180 <= lon <= 180):
-            print_error("Error 206: Latitude außerhalb des erlaubten Bereichs! -180 <= Longitude <= 180")
+        # Bereichsüberprüfung der Latitude
+        if not (-90 <= lat <= 90):
+            print_error("Error 205: Latitude außerhalb des erlaubten Bereichs!  -90 <= Latitude <= 90")
             return
         wpt.set("lat", str(lat))
         
     if lon is not None:
-        # Bereichsüberprüfung der Latitude
-        if not (-90 <= lat <= 90):
-            print_error("Error 205: Latitude außerhalb des erlaubten Bereichs!  -90 <= Latitude <= 90")
+        # Bereichsüberprüfung der Longitude
+        if not (-180 <= lon <= 180):
+            print_error("Error 206: Latitude außerhalb des erlaubten Bereichs! -180 <= Longitude <= 180")
             return
         wpt.set("lon", str(lon))
     
