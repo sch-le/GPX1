@@ -136,30 +136,33 @@ def edit(trk_id: int, trkseg_id: int, trkpt_id: int, lat: float, lon: float, ele
     # Find the specific "trkpt" element
     trks = _get_trks(input_gpx)
 
-    # Überprüfung ob Waypoint existiert
+    # Überprüfung ob Trackpoint existiert
+    if trkpt_id is None:
+        print_error("Error 305: Kein Trackpoint ausgewählt!")
+        return
+    
     if not (0 <= trkpt_id < len(trks[trk_id][1][trkseg_id])):
         print_error("Error 304: Waypoint nicht vorhanden!")
         return
     
-    # Bereichsüberprüfung der Latitude
-    if not (-90 <= lat <= 90):
-        print_error("Error 302: Latitude außerhalb des erlaubten Bereichs!  -90 <= Latitude <= 90")
-        return
-    
-    # Bereichsüberprüfung der Longitude
-    if not (-180 <= lon <= 180):
-        print_error("Error 303: Latitude außerhalb des erlaubten Bereichs! -180 <= Longitude <= 180")
-        return
-    
-    # Find the specific Waypoint
+    # Find the specific Trackpoint
     trk = input_gpx.etree.findall("{*}trk")[trk_id]
     trkseg = trk.findall("{*}trkseg")[trkseg_id]
     trkpt = trkseg.findall("{*}trkpt")[trkpt_id]
     
     # Edit the latitude and longitude using the attributes "lat" and "lon"
     if lat is not None:
+        # Bereichsüberprüfung der Latitude
+        if not (-90 <= lat <= 90):
+            print_error("Error 302: Latitude außerhalb des erlaubten Bereichs!  -90 <= Latitude <= 90")
+            return
         trkpt.set("lat", str(lat))
+        
     if lon is not None:
+        # Bereichsüberprüfung der Longitude
+        if not (-180 <= lon <= 180):
+            print_error("Error 303: Latitude außerhalb des erlaubten Bereichs! -180 <= Longitude <= 180")
+            return
         trkpt.set("lon", str(lon))
     
     if ele is not None:

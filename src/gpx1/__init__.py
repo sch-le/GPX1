@@ -12,7 +12,7 @@ from gpx1.usefull import input_type, print_color, cls, confirm
 from . import file_management
 from . import parser
 from . import waypoints
-from . import routs
+from . import routes
 from . import tracks
 
 
@@ -68,7 +68,7 @@ def gpx_menu(input_gpx: gpx):
         
         print_color(f"Anzahl Waypoints: {waypoints.get_count(input_gpx)}")
         print_color(f"Anzahl Tracks: {tracks.get_count(input_gpx)}")
-        print_color(f"Anzahl Routs: {routs.get_count(input_gpx)}")
+        print_color(f"Anzahl Routes: {routes.get_count(input_gpx)}")
         print_color("")
         
         print_color("Wählen sie bitte zwischen folgenden Optionen aus:")
@@ -76,7 +76,7 @@ def gpx_menu(input_gpx: gpx):
         
         print_color("1: Waypoints")
         print_color("2: Tracks")
-        print_color("3: Routs")
+        print_color("3: Routes")
         print_color("4: Metadaten")
         print_color("5: Änderungen speichern")
         print_color("0: Zurück")
@@ -116,7 +116,7 @@ def gpx_menu(input_gpx: gpx):
         elif auswahl == "2":
            input_gpx = track_menu(input_gpx)
            
-        # Untermenu Routs
+        # Untermenu Routes
         elif auswahl == "3":
            input_gpx = rout_menu(input_gpx)
         
@@ -341,13 +341,13 @@ def rout_menu(input_gpx: gpx):
         cls()
 
         # Falls keine Routen enthalten sind, gelangt man wieder ins vorherige Menu
-        if routs.get_count(input_gpx) == 0:
+        if routes.get_count(input_gpx) == 0:
             print_color("In Dieser Datei sind keine Routen enthalten.")
             confirm()
             return input_gpx
         
         # Ausgeben einer Liste mit allen Routen und Optionen zum fortfahren                
-        routs.print_rtes(input_gpx)    
+        routes.print_rtes(input_gpx)    
         print_color("")
         print_color("1. Auswahl einer Route")
         print_color("0. Hauptmenü")
@@ -365,7 +365,7 @@ def rout_menu(input_gpx: gpx):
             
             cls()
             # Ausgeben einer Liste mit allen Routen
-            routs.print_rtes(input_gpx)     
+            routes.print_rtes(input_gpx)     
             print_color("")
             
             # Abfrage des Tracks 
@@ -377,7 +377,7 @@ def rout_menu(input_gpx: gpx):
                 cls()
                 
                 # Ausgabe einer List mit allen Routenpunkten, bzw. Abbruch der Schleife, falls Route nicht vorhanden
-                if routs.print_list_rtepts(rte, input_gpx) is False:
+                if routes.print_list_rtepts(rte, input_gpx) is False:
                     break
                 
                 #Abfrage der Option zum Fortfahren
@@ -398,7 +398,7 @@ def rout_menu(input_gpx: gpx):
                     cls()
                     
                     # Ausgabe einer Liste mit Routenpunkten und Abfrage von Latitude, Longitude und Elevation
-                    routs.print_list_rtepts(rte, input_gpx)
+                    routes.print_list_rtepts(rte, input_gpx)
                     print_color("")
                     print_color("Geben sie bitte folgende Daten an")
                     print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
@@ -412,7 +412,7 @@ def rout_menu(input_gpx: gpx):
                     ele = input_type(float)
                     
                     # Ändern des Routenpunktes
-                    routs.edit(rte, rtept, lat, lon, ele, input_gpx)
+                    routes.edit(rte, rtept, lat, lon, ele, input_gpx)
 
                 # Ändern des Startpunktes
                 if auswahl == "2":
@@ -420,15 +420,15 @@ def rout_menu(input_gpx: gpx):
                     cls()
 
                     # Ausgabe einer Liste aller Routenpunkte
-                    routs.print_list_rtepts(rte, input_gpx)
+                    routes.print_list_rtepts(rte, input_gpx)
                     print_color("")
                     print_color("Bitte wählen Sie aus der Liste einen Routenpunkt als neuen Startpunkt")
                     print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
                     print_color("ID:(Integer)")
                     rtept = input_type(int)
 
-                    routs.edit_startpoint(rte, rtept, input_gpx)
-                    routs.print_list_rtepts(rte, input_gpx)
+                    routes.edit_startpoint(rte, rtept, input_gpx)
+                    routes.print_list_rtepts(rte, input_gpx)
                     
 
 

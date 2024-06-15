@@ -10,6 +10,7 @@ Tracks:
 
 Allgmein:
     - Kommentare überarbeiten evtl wpt_id trk_id trkseg_id ...
+    - Datei wurde unter ... gespeichert
 
 Metadaten:
     - hinzufügen
