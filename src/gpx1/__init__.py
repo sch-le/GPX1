@@ -446,7 +446,7 @@ def metadata_menu(input_gpx: gpx) -> None:
         print("")
         print_color("1. Bearbeiten des Namens")
         print_color("2. Bearbeiten der Beschreibung")
-        print_color("3. Bearbeiten des Authors")
+        print_color("3. Bearbeiten des Autors")
         print_color("0. Zurück")
 
         auswahl = input()   # Abfragen der Optionen
@@ -492,7 +492,7 @@ def metadata_menu(input_gpx: gpx) -> None:
             metadata.print_author(input_gpx, True)
             print_color("")
             
-            # Abfrage der neuen Author-Informationen
+            # Abfrage der neuen Autor-Informationen
             print_color("Name:(String)")
             new_name = input_type(str)
             print_color("Email:(String)")
@@ -504,5 +504,5 @@ def metadata_menu(input_gpx: gpx) -> None:
             print_color("Link: Typ des Inhalts:(String)")
             new_link_type = input_type(str)
             
-            # Ändern der Author-Informationen
+            # Ändern der Autor-Informationen
             metadata.edit_author(new_name, new_email, new_href, new_link_text, new_link_type, input_gpx)
