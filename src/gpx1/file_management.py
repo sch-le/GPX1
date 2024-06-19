@@ -14,6 +14,7 @@ from gpx1.usefull import print_color
 def open_file():
     #while True:                                              
     filepath = filedialog.askopenfilename(
+        title="GPX-Datei auswählen",
         #Beschränken der Auswahl auf GPX-Dateien
         filetypes=[("GPX files", "*.gpx")]  
     )
@@ -30,18 +31,19 @@ def open_file():
             except Exception as e:
                 print_color(f"Fehler beim Laden der Datei: {e}")
     else:                                                                   
-        print_color("Keine Datei ausgewählt.")                                    
+        print_color("Keine Datei ausgewählt.")  
 
-    #window.destroy()
 
-""" def open_window():
-    #Erstellen des Hauptfensters
-    window = Tk()                                                               
-    window.title("GPX Datei Öffnen")
-
-    #Erstellen und platzieren des "Öffnen" Buttons
-    button = Button(window, text="Öffnen", command=open_file)
-    button.pack(pady=20)
-
-    #Starten der Tkinter-Ereignisschleife
-    window.mainloop() """
+def save_path():
+    filepath = filedialog.asksaveasfilename(
+        title="Speicherort auswählen",
+        defaultextension=".gpx",
+        filetypes=[("GPX files", "*.gpx")]
+    )
+    
+    if filepath:
+        print_color(f"Dateipfad ausgewählt: {filepath}")
+        return filepath
+    else:
+        print_color("Kein Speicherort ausgewählt.")
+        return None

@@ -126,9 +126,29 @@ def gpx_menu(input_gpx: gpx):
         
         # Änderungen speichern
         elif auswahl == "5":
-            parser.write_file(input_gpx)    # Schreiben der fertigen Datei
-            print_color("Datei wurde unter ... gespeichert!")
-            confirm()
+            while True:
+                cls()
+
+                print_color("Wählen Sie einen Speicherort!")
+
+                print_color("1: Bestätigen")
+                print_color("0: Abbrechen")
+                auswahl = input()
+
+                # Neuen Speicherort wählen
+                if auswahl == "1":
+                    selected_path = file_management.save_path()
+                    if selected_path:
+                        # Schreiben der fertigen Datei
+                        parser.write_file(input_gpx, selected_path)    
+                        print_color(f"Datei wurde unter {selected_path} gespeichert!")
+                    else:
+                        print_color("Speichern abgebrochen.")
+                
+                elif auswahl == "0":
+                    break
+            
+
 
 def waypoint_menu(input_gpx: gpx) -> gpx:
     """Untermenu zum Auswählen der Waypoints Funktionen
