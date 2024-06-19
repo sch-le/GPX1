@@ -11,8 +11,9 @@ version = "V0.78"
 # Pfad und Name mit dem die Datei ausgegeben wird
 output_path = "output.gpx"
 
-# Klassen zum speicher von GPX-Daten und XML-Deklaration
 class gpx:
+    """Klasse zum Speichern von GPX-Daten und XML-Deklaration
+    """
     # XML-Deklarationen
     encoding = None
     standalone = None

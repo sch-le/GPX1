@@ -14,8 +14,7 @@ from . import parser
 from . import waypoints
 from . import routes
 from . import tracks
-
-
+from . import metadata
 
 def main():
     """Hauptmenu, in dem die GPX-Datei geladen oder das Programm beendet werden kann.
@@ -53,7 +52,7 @@ def main():
             else:
                 gpx_menu(input_gpx)
     
-def gpx_menu(input_gpx: gpx):
+def gpx_menu(input_gpx: gpx) -> None:
     """Untermenu zum Auswählen der verschiedenen Funktionalitäten bzw. weiterer Untermenus
 
     Args:
@@ -66,6 +65,9 @@ def gpx_menu(input_gpx: gpx):
         # Leeren der Konsole
         cls() 
         
+        metadata.print_name(input_gpx)
+        metadata.print_description(input_gpx)
+        metadata.print_author(input_gpx)
         print_color(f"Anzahl Waypoints: {waypoints.get_count(input_gpx)}")
         print_color(f"Anzahl Tracks: {tracks.get_count(input_gpx)}")
         print_color(f"Anzahl Routes: {routes.get_count(input_gpx)}")
@@ -74,12 +76,12 @@ def gpx_menu(input_gpx: gpx):
         print_color("Wählen sie bitte zwischen folgenden Optionen aus:")
         print_color("")
         
-        print_color("1: Waypoints")
-        print_color("2: Tracks")
-        print_color("3: Routes")
-        print_color("4: Metadaten")
-        print_color("5: Änderungen speichern")
-        print_color("0: Zurück")
+        print_color("1. Waypoints")
+        print_color("2. Tracks")
+        print_color("3. Routes")
+        print_color("4. Metadaten")
+        print_color("5. Änderungen speichern")
+        print_color("0. Zurück")
         
         auswahl = input()
         
@@ -95,14 +97,14 @@ def gpx_menu(input_gpx: gpx):
                 print_color("Achtung, alle Änderungen gehen hierdurch verloren!")
                 print_color("Wählen sie bitte zwischen folgenden Optionen aus:")
                 print_color("")
-                print_color("1: Abbrechen")
-                print_color("0: Bestätigen")
+                print_color("1. Abbrechen")
+                print_color("0. Bestätigen")
                 
                 auswahl = input()
                 
                 # Zurück -> Änderungen gehen verloren
                 if auswahl == "0":
-                    return()
+                    return
                 
                 # Abbrechen
                 if auswahl == "1":
@@ -110,19 +112,19 @@ def gpx_menu(input_gpx: gpx):
         
         # Untermenu Waypoints
         elif auswahl == "1":
-           input_gpx = waypoint_menu(input_gpx)
+           waypoint_menu(input_gpx)
            
         # Untermenu Tracks
         elif auswahl == "2":
-           input_gpx = track_menu(input_gpx)
+           track_menu(input_gpx)
            
         # Untermenu Routes
         elif auswahl == "3":
-           input_gpx = rout_menu(input_gpx)
+           rout_menu(input_gpx)
         
         # Untermenu Metadaten
         elif auswahl == "4":
-           ...
+           metadata_menu(input_gpx)
         
         # Änderungen speichern
         elif auswahl == "5":
@@ -130,14 +132,11 @@ def gpx_menu(input_gpx: gpx):
             print_color("Datei wurde unter ... gespeichert!")
             confirm()
 
-def waypoint_menu(input_gpx: gpx) -> gpx:
+def waypoint_menu(input_gpx: gpx) -> None:
     """Untermenu zum Auswählen der Waypoints Funktionen
 
     Args:
         input_gpx (gpx): Daten der GPX-Datei
-
-    Returns:
-        gpx: (geänderete) Daten der GPX-Datei
     """
     
     while True:
@@ -162,7 +161,7 @@ def waypoint_menu(input_gpx: gpx) -> gpx:
         
         # Zurück
         if auswahl == "0":
-            return input_gpx
+            return
         
         # Bearbeiten von Waypoints
         if auswahl == "1":
@@ -211,14 +210,11 @@ def waypoint_menu(input_gpx: gpx) -> gpx:
             print_color(f"Höhendifferenz: {ele_diff:9.6f}")
             confirm()
 
-def track_menu(input_gpx: gpx) -> gpx:
+def track_menu(input_gpx: gpx) -> None:
     """Untermenu zum Auswählen der Track Funktionen
 
     Args:
         input_gpx (gpx): Daten der GPX-Datei
-
-    Returns:
-        gpx: (geänderte )Daten der GPX-Datei
     """    
 
     while True:
@@ -242,7 +238,7 @@ def track_menu(input_gpx: gpx) -> gpx:
         
         # Zurück
         if auswahl == "0":
-            return input_gpx
+            return
 
         # Auswahl einer Tracks
         if auswahl == "1":
@@ -328,7 +324,7 @@ def track_menu(input_gpx: gpx) -> gpx:
                             # Ändern des Trackpoints
                             tracks.edit(trk, trkseg, trkpnt, lat, lon, ele, input_gpx)                   
 
-def rout_menu(input_gpx: gpx):
+def rout_menu(input_gpx: gpx) -> None:
     """Untermenu zum Auswählen der Rout-Funktionen
 
     Args:
@@ -358,7 +354,7 @@ def rout_menu(input_gpx: gpx):
 
         # Zurück
         if auswahl == "0":
-            return input_gpx
+            return
 
         # Auswahl einer Route
         elif auswahl == "1":
@@ -430,10 +426,84 @@ def rout_menu(input_gpx: gpx):
                     routes.edit_startpoint(rte, rtept, input_gpx)
                     routes.print_list_rtepts(rte, input_gpx)
                     
+def metadata_menu(input_gpx: gpx) -> None:
+    """Untermenü zur Auswahl der Metadata Funktionen
 
+    Args:
+        input_gpx (gpx): Daten der GPX-Datei
+    """
+    
+    while True:
+        
+        # Leeren der Konsole
+        cls() 
+        
+        # Ausgabe einer Liste mit allen Metadata-Informationen und Optionen zum fortfahren
+        metadata.print_name(input_gpx)
+        metadata.print_description(input_gpx)
+        metadata.print_author(input_gpx, True)
+        
+        print("")
+        print_color("1. Bearbeiten des Namens")
+        print_color("2. Bearbeiten der Beschreibung")
+        print_color("3. Bearbeiten des Authors")
+        print_color("0. Zurück")
 
-
-                     
-
-                
+        auswahl = input()   # Abfragen der Optionen
+        
+        # Zurück
+        if auswahl == "0":
+            return
+        
+        # Bearbeiten des Namens
+        if auswahl == "1":
+            # Leeren der Konsole
+            cls()
             
+            # Ausgabe des Namens der GPX-Datei
+            metadata.print_name(input_gpx)
+            print_color("")
+            
+            # Abfrage des neuen Names der GPX-Datei
+            print_color("Name:(String)")
+            new_name = input_type(str)
+            print(input_gpx)
+            metadata.edit_name(new_name, input_gpx)
+
+        # Bearbeiten der Beschreibung
+        if auswahl == "2":
+            # Leeren der Konsole
+            cls()
+            
+            # Ausgabe der Beschreibung der GPX-Datei
+            metadata.print_description(input_gpx)
+            print_color("")
+            
+            # Abfrage des neuen Names der GPX-Datei
+            print_color("Beschreibung:(String)")
+            new_desc = input_type(str)
+            metadata.edit_description(new_desc, input_gpx)
+        
+        # Bearbeiten der Beschreibung
+        if auswahl == "3":
+            # Leeren der Konsole
+            cls()
+            
+            # Ausgabe der Beschreibung der GPX-Datei
+            metadata.print_author(input_gpx, True)
+            print_color("")
+            
+            # Abfrage der neuen Author-Informationen
+            print_color("Name:(String)")
+            new_name = input_type(str)
+            print_color("Email:(String)")
+            new_email = input_type(str)
+            print_color("Link-URL:(String)")
+            new_href = input_type(str)
+            print_color("Link: Text:(String)")
+            new_link_text = input_type(str)
+            print_color("Link: Typ des Inhalts:(String)")
+            new_link_type = input_type(str)
+            
+            # Ändern der Author-Informationen
+            metadata.edit_author(new_name, new_email, new_href, new_link_text, new_link_type, input_gpx)

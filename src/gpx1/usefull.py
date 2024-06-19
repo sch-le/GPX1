@@ -18,7 +18,7 @@ def input_type(type: str) -> any:
         type (str): Typ in den gewandelt werden soll.
 
     Returns:
-        _type_: Typgewandele Eingabe
+        any: Typgewandele Eingabe
     """
     
     while True:
@@ -44,6 +44,10 @@ def input_type(type: str) -> any:
             except Exception:
                 print_color("Falscher Datentyp!")
                 continue
+            
+        # Falls Input com Tpy str sein soll
+        if type == str:
+            return input_str
             
 count: int = 0   # Gibt den Status von print_color an
 def print_color(text: str):

@@ -2,7 +2,7 @@
 
 (c) PaFeLe²KyLuKa-Industries
 
-Beschreibung: Funktionen zum Auslesen und Bearbeiten und Berechnugen von Waypoint-Informationen
+Beschreibung: Funktionen zum Auslesen, Bearbeiten und Berechnen von Waypoint-Informationen
 Autor: Leon Schuck
 Erstellt: 01.06.2024
 """
@@ -28,7 +28,7 @@ def _get_wpts(input_gpx: gpx) -> list:
     wpts = []   
     
     # Suchen aller Waypoints in GPX-Datei
-    for wpt in input_gpx.etree.findall("{*}wpt"):   # Loop über alle "wpt" Elemente
+    for wpt in input_gpx.etree.findall("{*}wpt"):   # Loop über Liste aller "wpt" Elemente
         
         # Auslesen der Latitude und Logitude aus den Child-Elementen "lat" und "lon"
         lat = float(wpt.get("lat"))
@@ -120,13 +120,10 @@ def edit(wpt_id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx
  
     Args:
         id (int): ID des zu bearbeitenden Waypoints
-        lat (float): Latitude
-        lon (float): Longitude
-        ele (float): Elevation
+        lat (float): Neue Latitude / None: keine Änderung
+        lon (float): Neue Longitude / None: keine Änderung
+        ele (float): Neue Elevation / None: keine Änderung
         input_gpx (gpx): Daten der GPX-Datei
-
-    Returns:
-        gpx: Bearbeitete GPX-Daten
     """
     
     # Erstellen einer Liste mit allen Waypoints
@@ -167,5 +164,3 @@ def edit(wpt_id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx
             # Erstellen des Child-Elements "ele"
             wpt.append(lxml.etree.Element("ele"))
             wpt.find("{*}ele").text = str(ele)
-    
-    return input_gpx

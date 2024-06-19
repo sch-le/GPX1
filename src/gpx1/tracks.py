@@ -3,12 +3,13 @@
 (c) PaFeLe²KyLuKa-Industries
 
 Description: Functions for reading and editing tracks
-Author: Leon Schuck
+Author: Ameen Kamal, Leon Schuck
 Created: 01.06.2024
 """
 
-from gpx1.config import gpx
 import lxml
+
+from gpx1.config import gpx
 from gpx1.usefull import print_color, print_error
 
 def _get_trks(input_gpx: gpx) -> list:
@@ -24,13 +25,13 @@ def _get_trks(input_gpx: gpx) -> list:
     trks = []
     i = 0
     # Find all trackpoints in the GPX file
-    for trk in input_gpx.etree.findall("{*}trk"):
+    for trk in input_gpx.etree.findall("{*}trk"):   # Loop über Liste aller Tracks
         trks.append([])
         name = trk.find("{*}name").text
         trks[i].append(name)
         trks[i].append([])
         n = 0 
-        for trkseg in trk.findall("{*}trkseg"):
+        for trkseg in trk.findall("{*}trkseg"): # Loop über Liste aller Tracksegmente
             trks[i][1].append([])
             for trkpt in trkseg.findall("{*}trkpt"):
                 lat = float(trkpt.get("lat"))
@@ -119,7 +120,7 @@ def get_count(input_gpx: gpx) -> int:
     trkpts = _get_trks(input_gpx)
     return len(trkpts)
 
-def edit(trk_id: int, trkseg_id: int, trkpt_id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
+def edit(trk_id: int, trkseg_id: int, trkpt_id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> None:
     """Edits the latitude, longitude, and elevation of a given trackpoint.
 
     Args:
@@ -128,9 +129,6 @@ def edit(trk_id: int, trkseg_id: int, trkpt_id: int, lat: float, lon: float, ele
         lon (float): Longitude
         ele (float): Elevation
         input_gpx (gpx): Data from the GPX file
-
-    Returns:
-        gpx: Edited GPX data
     """
     
     # Find the specific "trkpt" element
@@ -173,5 +171,3 @@ def edit(trk_id: int, trkseg_id: int, trkpt_id: int, lat: float, lon: float, ele
             # Create the child element "ele"
             trkpt.append(lxml.etree.Element("ele"))
             trkpt.find("{*}ele").text = str(ele)
-    
-    return input_gpx
