@@ -467,7 +467,6 @@ def metadata_menu(input_gpx: gpx) -> None:
             # Abfrage des neuen Names der GPX-Datei
             print_color("Name:(String)")
             new_name = input_type(str)
-            print(input_gpx)
             metadata.edit_name(new_name, input_gpx)
 
         # Bearbeiten der Beschreibung

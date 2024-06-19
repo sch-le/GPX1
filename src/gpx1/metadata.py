@@ -126,8 +126,7 @@ def edit_name(new_name: str, input_gpx: gpx,) -> None:
         new_name (str): Neuer Name / None: keine Änderung
         input_gpx (gpx): Daten der GPX-Datei
     """
-    print(input_gpx)
-    input()
+    
     # Abbrechen, falls Name nicht geändert werden soll
     if new_name is None:
         return
