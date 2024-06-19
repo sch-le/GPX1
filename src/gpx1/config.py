@@ -6,7 +6,7 @@ Erstellt: 27.05.2024
 """
 
 # Version
-version = "V0.78"
+version = "V0.90"
 
 # Pfad und Name mit dem die Datei ausgegeben wird
 output_path = "output.gpx"
