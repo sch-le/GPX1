@@ -140,14 +140,14 @@ def edit(rte_id: int, rtept_id: int, lat: float, lon: float, ele: float, input_g
     if lat is not None:
         # Bereichsüberprüfung der Latitude
         if not (-90 <= lat <= 90):
-            print_error("Error 402: Latitude außerhalb des erlaubten Bereichs!  0 <= Latitude <= 90")
+            print_error("Error 402: Latitude außerhalb des erlaubten Bereichs!  -90 <= Latitude <= 90")
             return
         rtept.set("lat", str(lat))
         
     if lon is not None:
         # Bereichsüberprüfung der Longitude
         if not (-180 <= lon <= 180):
-            print_error("Error 403: Longitude außerhalb des erlaubten Bereichs! 0 <= Longitude <= 180")
+            print_error("Error 403: Longitude außerhalb des erlaubten Bereichs! -180 <= Longitude <= 180")
             return
         rtept.set("lon", str(lon))
     
