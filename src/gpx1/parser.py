@@ -9,7 +9,6 @@ from lxml import etree
 import re
 import sys
 
-from . import config
 from gpx1.config import gpx
 from gpx1.usefull import print_color
 

@@ -116,7 +116,10 @@ def get_count(input_gpx: gpx) -> int:
     Returns:
         int: Number of trackpoints
     """
+    
     trkpts = _get_trks(input_gpx)
+    
+    # Gibt die Anzahl der Elemente (Tracks) zurück
     return len(trkpts)
 
 def edit(trk_id: int, trkseg_id: int, trkpt_id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
