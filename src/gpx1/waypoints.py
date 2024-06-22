@@ -21,10 +21,13 @@ def _get_wpts(input_gpx: gpx) -> list:
         list: Liste mit Latitude, Longitude, Elevation
     """
     
-    # Liste mit allen Waypoints und dazugehöriger Latitude, Longitude und Elevation
-    # Format: [[wpt1_lat, wpt1_lon, wpt1_ele],
-    #          [wpt2_lat, wpt2_lon, wpt2_ele], ... 
-    #          [wptn_lat, wptn_lon, wptn_ele]]
+    """Liste mit allen Waypoints und dazugehöriger Latitude, Longitude und Elevation
+    Format: [   [wpt1_lat, wpt1_lon, wpt1_ele],
+                [wpt2_lat, wpt2_lon, wpt2_ele],
+                .... 
+                [wptn_lat, wptn_lon, wptn_ele],
+            ]
+    """
     wpts = []   
     
     # Suchen aller Waypoints in GPX-Datei
@@ -45,7 +48,7 @@ def _get_wpts(input_gpx: gpx) -> list:
     return wpts
 
 def print_list(input_gpx: gpx) -> None:
-    """Gibt eine Liste mit allen Waypoints und der dazugehörigen Latitude Longitude und optinalen Elevation aus
+    """Gibt eine Liste mit allen Waypoints und der dazugehörigen Latitude, Longitude und optinalen Elevation aus
 
     Args:
         input_gpx (gpx): Daten der GPX-Datei
@@ -56,7 +59,7 @@ def print_list(input_gpx: gpx) -> None:
         
     print_color("   ID   |  Latitude  |  Longitude  |  Elevation  ")
     print_color("--------|------------|-------------|-------------")
-                    #  |  50.71674 |
+    
     # Ausgabe der Waypoint Informationen in Listenform
     for id, wpt in enumerate(wpts):
         # Falls optionale Elevation-Information enthalten ist, wird diese mit ausgegeben
@@ -65,11 +68,14 @@ def print_list(input_gpx: gpx) -> None:
         else:                            
             print_color(f"  {id: 4}  | {wpt[0]: 10.6f} | {wpt[1]: 11.6f} |             ")
 
-def get_count(input_gpx: gpx) -> int:
+def get_count(input_gpx: gpx) -> int: 
     """Gibt die Anzahl der in der Datei vorkommenden Waypoints zurück
 
     Args:
-        input_gpx (gpx): _description_
+        input_gpx (gpx): Daten der GPX-Datei
+        
+    Returns:
+        int: Amzahl der Waypoints
     """
     
     # Erstellen einer Liste mit allen Waypoints
@@ -115,7 +121,7 @@ def calc_elevation(id1: int, id2: int, input_gpx) -> float:
     # Berechnung und Rückgabe der Höhendifferenz
     return(float(wpts[id2][2]) - float(wpts[id1][2]))
     
-def edit(wpt_id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
+def edit(wpt_id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> None:
     """Ändert die Latitude, Longitude und Elevation eines gegebenen Waypoints
  
     Args:

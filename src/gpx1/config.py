@@ -6,10 +6,10 @@ Erstellt: 27.05.2024
 """
 
 # Version
-version = "V0.90"
+version = "V1.0"
 
-# Pfad und Name mit dem die Datei ausgegeben wird
-#output_path = "output.gpx"
+# Pfad und Name mit dem die Datei auf Mac ausgegeben wird
+output_path = "output.gpx"
 
 class gpx:
     """Klasse zum Speichern von GPX-Daten und XML-Deklaration

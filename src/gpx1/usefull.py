@@ -59,11 +59,11 @@ def print_color(text: str):
 
     global count
     
-    # Ist count gerade, wird ein schwarzer Hintergrund ausgegeben
+    # Ist count gerade, wird ein schwarzer Hintergrund mit gelber Schrift ausgegeben
     if count % 2 == 0 :
         print(Fore.YELLOW + Back.BLACK + text + Style.RESET_ALL)
 
-    # Ist count ungerade, wird ein roter Hintergrund ausgegeben
+    # Ist count ungerade, wird ein roter Hintergrund mit gelber Schrift ausgegeben
     elif count % 2 == 1:
         print(Fore.YELLOW + Back.RED + text + Style.RESET_ALL)
         

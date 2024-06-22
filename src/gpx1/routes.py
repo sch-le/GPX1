@@ -22,6 +22,18 @@ def _get_rtes(input_gpx: gpx) -> list:
         list: Liste mit Routen
     """
     
+    """Liste mit allen Routen und dazugehörigen Routenpunkten mit Latitude, Longitude und Elevation
+    Format: [   [name_rte_0,    [   [rtepoint_0_lat, rtepoint_0_lon, rtepoint_0_ele],
+                                    ...
+                                    [rtepoint_n_lat, rtepoint_n_lon, rtepoint_n_ele],
+                                ],
+                ...
+                [name_rte_n,    [   [rtepoint_0_lat, rtepoint_0_lon, rtepoint_0_ele],
+                                    ...
+                                    [rtepoint_n_lat, rtepoint_n_lon, rtepoint_n_ele],
+                                ],
+            ]
+    """
     rtes = []
     i = 0
 
@@ -29,14 +41,18 @@ def _get_rtes(input_gpx: gpx) -> list:
     for rte in input_gpx.etree.findall("{*}rte"):
         # Hinzufügen einer weiteren Liste zu jedem Listelement in rtes
         rtes.append([])
+        
         # Suchen nach Namen der Route und hinzufügen einer weiteren Liste für GPS-Daten einzelner Routenpunkte 
         name = rte.find("{*}name").text
         rtes[i].append(name)
         rtes[i].append([])
+        
         # Suchen einzelner Routenpunkte
         for rtept in rte.findall("{*}rtept"):
             lat = float(rtept.get("lat"))
             lon = float(rtept.get("lon"))
+            
+            # Hinzufügen der optioanlen Elevation aus Child-Element "ele", falls dieses vorhanden ist
             ele = ""
             if rtept.find("{*}ele") is not None:
                 ele = float(rtept.find("{*}ele").text)
@@ -45,8 +61,7 @@ def _get_rtes(input_gpx: gpx) -> list:
             rtes[i][1].append([lat, lon, ele])
             
         i = i + 1
-        
-
+    
     return rtes
 
 def print_rtes(input_gpx: gpx) -> None:
@@ -56,21 +71,15 @@ def print_rtes(input_gpx: gpx) -> None:
         input_gpx (gpx): Daten der GPX-Datei
     """
     
-    print_color("   ID   |  Name")
-    print_color("--------|--------")
-    
     # Erstellen einer Liste der Routen
     rtes = _get_rtes(input_gpx)
-
-    '''# Überprüfen ob Routen vorhanden sind
-    if not rtes:
-        print_color("Keine Routen in angegebener Datei gefunden.")
-        return
-    '''
     
+    print_color("  Route-ID  |  Name    ")
+    print_color("------------|----------")
+    
+    # Ausgabe der Routen in Listenform
     for id, rte in enumerate(rtes):
         print_color(f"  {id:4}  |  {rte[0]}")
-
 
 def print_list_rtepts(rte: int, input_gpx: gpx) -> None:
     """Gibt eine Liste mit allen Routenpunkten und der dazugehörigen Latitude Longitude und optinalen Elevation aus
@@ -80,15 +89,19 @@ def print_list_rtepts(rte: int, input_gpx: gpx) -> None:
         input_gpx (gpx): Daten der GPX-Datei
     """
     
-    print_color("   ID   |  Latitude  |  Longitude  |  Elevation")
-    print_color("--------|------------|-------------|-------------")
-    
     # Erstellen einer Liste mit allen Routenpunkten
     rtes = _get_rtes(input_gpx)
     
+    if not (0 <= rte < len(rtes)):
+        print_error("Error 409: Route außerhalb des gültigen Bereichs!")
+        return False
+    
+    print_color("   ID   |  Latitude  |  Longitude  |  Elevation  ")
+    print_color("--------|------------|-------------|-------------")
     
     # Ausgabe der Routenpunkt Informationen in Listenform
     for id, rtept in enumerate(rtes[rte][1]):
+        # Falls optionale Elevation-Information enthalten ist, wird diese mit ausgegeben
         if rtept[2] != "":
             print_color(f"  {id: 4}  | {rtept[0]: 10.6f} | {rtept[1]: 11.6f} |  {rtept[2]: 9.3f}  " ) 
         else:                            
@@ -101,20 +114,25 @@ def get_count(input_gpx: gpx) -> int:
 
     Args:
         input_gpx (gpx): _description_
-    """
+        
+    Returns:
+        _type_: _description_
+    """    
     
     rtes = _get_rtes(input_gpx)
     
+    # Gibt die Anzahl der Elemente (Routes) zurück
     return len(rtes)
 
 def edit(rte_id: int, rtept_id: int, lat: float, lon: float, ele: float, input_gpx: gpx) -> gpx:
     """Ändert die Latitude, Longitude und Elevation eines gegebenen Routenpunktes
  
     Args:
-        id (int): ID der zu bearbeitenden Routenpunkte
-        lat (float): Latitude
-        lon (float): Longitude
-        ele (float): Elevation
+        rte_id (int): ID der Route, die den Routepoint beinhaltet
+        rtept_id (int): ID des zu bearbeitenden Routepoints
+        lat (float): Neue Latitude / None: keine Änderung
+        lon (float): Neue Longitude / None: keine Änderung
+        ele (float): Neue Elevation / None: keine Änderung
         input_gpx (gpx): Daten der GPX-Datei
 
     Returns:
@@ -134,7 +152,7 @@ def edit(rte_id: int, rtept_id: int, lat: float, lon: float, ele: float, input_g
     
     # Suchen nach bestimmten Routenpunkt
     rte = input_gpx.etree.findall("{*}rte")[rte_id]
-    rtept = rte.findall("{*}rtept")[rtept_id]
+    rtept = rte.findall("{*}rtept")[rtept_id]    
     
     # Ändern der Latitude und Longitude, über die Attribute "lat" und "lon"
     if lat is not None:
@@ -162,13 +180,12 @@ def edit(rte_id: int, rtept_id: int, lat: float, lon: float, ele: float, input_g
     
     return input_gpx
 
-
 def edit_startpoint(rte_id: int, rtept_id: int, input_gpx: gpx) -> gpx:
     """Ändert den Startpunkt einer Route zu einem bestimmten Routenpunkt.
     
     Args:
-        rte_id (int): ID der Route.
-        rtept_id (int): ID des neuen Startpunkts.
+        rte_id (int): ID der Route, die den Routepoint beinhaltet.
+        rtept_id (int): ID des Routepoints, der der neune Startpunkt sein soll.
         input_gpx (gpx): Daten der GPX-Datei.
     
     Returns:
@@ -209,7 +226,5 @@ def edit_startpoint(rte_id: int, rtept_id: int, input_gpx: gpx) -> gpx:
             ele.text = str(point[2])
             rtept.append(ele)
         rte_element.append(rtept)
-
-
 
     return input_gpx

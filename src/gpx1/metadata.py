@@ -120,7 +120,7 @@ def _get_author(input_gpx: gpx) -> AuthorInfo:
     return author_info
     
 def edit_name(new_name: str, input_gpx: gpx,) -> None:
-    """Ändert den in metadata definierten Namen oder legt diesen an.
+    """Ändert den in metadata definierten Namen der GPX-Datei bzw. legt diesen an, falls dieser nicht existiert.
 
     Args:
         new_name (str): Neuer Name / None: keine Änderung
@@ -147,7 +147,7 @@ def edit_name(new_name: str, input_gpx: gpx,) -> None:
     name.text = new_name
         
 def edit_description(new_desc: str, input_gpx: gpx) -> None:
-    """Ändert die in metadata definierte Beschreibung oder legt diesen an.
+    """Ändert die in metadata definierte Beschreibung bzw. legt diesen an, falls dieser nicht existiert.
 
     Args:
         new_desc (str): Neue Beschreibung / None: keine Änderung
@@ -177,15 +177,15 @@ def edit_description(new_desc: str, input_gpx: gpx) -> None:
     desc.text = new_desc
     
 def edit_author(new_name: str, new_email: str, new_href: str, new_link_text: str, new_link_type: str, input_gpx: gpx) -> None:
-    """_summary_
+    """Ändert die in metadata definierte Autor-Informationen bzw. legt diesen an, falls sie nicht existieren.
 
     Args:
-        new_name (str): _description_
-        new_email (str): _description_
-        new_href (str): _description_
-        new_link_text (str): _description_
-        new_link_type (str): _description_
-        input_gpx (gpx): _description_
+        new_name (str): Neuer Name / None: keine Änderung
+        new_email (str): Neue E-Mail / None: keine Änderung
+        new_href (str): Neuer Hyperlink / None: keine Änderung
+        new_link_text (str): Neuer Link-Text / None: keine Änderung
+        new_link_type (str): Neuer Link-Type / None: keine Änderung
+        input_gpx (gpx): Daten der GPX-Datei
     """
     
     # Abbrechen, falls Author-Informationen nicht geändert werden sollen

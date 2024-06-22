@@ -25,12 +25,14 @@ def main():
         # Leeren der Konsole
         cls()   
         
+        # Ausgabe von Optionen zum Fortfahren
         print_color(f"GPX-Editor {version}")
         print_color("Bitte wählen Sie aus folgenden Optionen aus:")
         print_color("")
         print_color("1: Auswahl einer GPX Datei")
         print_color("0: Programm Beenden ")
         
+        # Abfrage der Optionen
         auswahl = input()
         
         # Programm Beenden
@@ -65,6 +67,7 @@ def gpx_menu(input_gpx: gpx) -> None:
         # Leeren der Konsole
         cls() 
         
+        # Ausgabe Name, Beschreibung und Autor der GPX-Datei und Anzahl Waypoints, Tracks und Routs
         metadata.print_name(input_gpx)
         metadata.print_description(input_gpx)
         metadata.print_author(input_gpx)
@@ -73,9 +76,9 @@ def gpx_menu(input_gpx: gpx) -> None:
         print_color(f"Anzahl Routes: {routes.get_count(input_gpx)}")
         print_color("")
         
+        # Ausgabe von Optionen zum Fortfahren
         print_color("Wählen sie bitte zwischen folgenden Optionen aus:")
         print_color("")
-        
         print_color("1. Waypoints")
         print_color("2. Tracks")
         print_color("3. Routes")
@@ -83,6 +86,7 @@ def gpx_menu(input_gpx: gpx) -> None:
         print_color("5. Änderungen speichern")
         print_color("0. Zurück")
         
+        # Abfrage der Optionen
         auswahl = input()
         
         # Zurück ?
@@ -94,12 +98,14 @@ def gpx_menu(input_gpx: gpx) -> None:
                 # Leeren der Konsole
                 cls()
                 
+                # Ausgabe von Optionen zum Fortfahren
                 print_color("Achtung, alle Änderungen gehen hierdurch verloren!")
                 print_color("Wählen sie bitte zwischen folgenden Optionen aus:")
                 print_color("")
                 print_color("1. Abbrechen")
                 print_color("0. Bestätigen")
                 
+                # Abfrage der Optionen
                 auswahl = input()
                 
                 # Zurück -> Änderungen gehen verloren
@@ -120,7 +126,7 @@ def gpx_menu(input_gpx: gpx) -> None:
            
         # Untermenu Routes
         elif auswahl == "3":
-           rout_menu(input_gpx)
+           route_menu(input_gpx)
         
         # Untermenu Metadaten
         elif auswahl == "4":
@@ -131,10 +137,14 @@ def gpx_menu(input_gpx: gpx) -> None:
             while True:
                 cls()
 
+                # Ausgabe von Optionen zum Fortfahren
                 print_color("Wählen Sie einen Speicherort!")
-
+                print_color("Wählen sie bitte zwischen folgenden Optionen aus:")
+                print_color("")
                 print_color("1: Bestätigen")
                 print_color("0: Abbrechen")
+                
+                # Abfrage der Optionen
                 auswahl = input()
 
                 # Neuen Speicherort wählen
@@ -181,7 +191,8 @@ def waypoint_menu(input_gpx: gpx) -> None:
         print_color("2. Höhendifferenz zw. zwei Waypoints berechnen")
         print_color("0. Zurück")
         
-        auswahl = input()   # Abfragen der Optionen
+        # Abfragen der Optionen
+        auswahl = input()   
         
         # Zurück
         if auswahl == "0":
@@ -195,7 +206,6 @@ def waypoint_menu(input_gpx: gpx) -> None:
             
             waypoints.print_list(input_gpx) # Gibt eine Liste mit allen Waypoints aus
             print_color("")
-            
             print_color("Geben sie bitte folgende Daten an, falls keine Änderung erwünscht ist, bestätigen sie mit Enter.")
             print_color("Bitte beachten sie den geforderten Datentyp in der Klammer")
             
@@ -220,7 +230,6 @@ def waypoint_menu(input_gpx: gpx) -> None:
                         
             waypoints.print_list(input_gpx) # Gibt eine Liste mit allen Waypoints aus
             print_color("")
-            
             print_color("Geben sie die IDs der Wegpunkte an")
             
             # Abfrage der Wegpunkte zwischen denen die Differenz berechnet werden soll
@@ -348,8 +357,8 @@ def track_menu(input_gpx: gpx) -> None:
                             # Ändern des Trackpoints
                             tracks.edit(trk, trkseg, trkpnt, lat, lon, ele, input_gpx)                   
 
-def rout_menu(input_gpx: gpx) -> None:
-    """Untermenu zum Auswählen der Rout-Funktionen
+def route_menu(input_gpx: gpx) -> None:
+    """Untermenu zum Auswählen der Route-Funktionen
 
     Args:
         input_gpx (gpx): Daten der GPX-Datei
@@ -388,8 +397,8 @@ def rout_menu(input_gpx: gpx) -> None:
             routes.print_rtes(input_gpx)     
             print_color("")
             
-            # Abfrage des Tracks 
-            print_color("Track-ID:(Integer)")
+            # Abfrage der Route 
+            print_color("Route-ID:(Integer)")
             rte = input_type(int)
             
             while True:

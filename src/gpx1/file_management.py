@@ -9,7 +9,7 @@ from tkinter import filedialog
 
 #Importieren der notwendigen Funktionen aus parser.py
 from gpx1.parser import parse
-from gpx1.usefull import print_color
+from gpx1.usefull import print_color, print_error
 
 def open_file():
     #while True:                                              
@@ -21,7 +21,7 @@ def open_file():
     
     if filepath:                                                            
         if not filepath.endswith('.gpx'):
-            print_color("Fehler: Bitte wählen Sie eine GPX-Datei aus.")
+            print_color("Bitte wählen Sie eine GPX-Datei aus.")
         else:
             try:
                 #Verwenden der parse-Funktion aus parser.py
@@ -29,9 +29,9 @@ def open_file():
                 return gpx_data
             
             except Exception as e:
-                print_color(f"Fehler beim Laden der Datei: {e}")
+                print_color(f"Error 101: Fehler beim Laden der Datei: {e}")
     else:                                                                   
-        print_color("Keine Datei ausgewählt.")  
+        print_error("Error 102: Keine Datei ausgewählt.")  
 
 
 def save_path():
@@ -43,5 +43,5 @@ def save_path():
     if filepath:
         return filepath
     else:
-        print_color("Kein Speicherort ausgewählt.")
+        print_error("Error 103: Kein Speicherort ausgewählt.")
         return None

@@ -10,17 +10,17 @@ import re
 import sys
 
 from gpx1.config import gpx
-from gpx1.usefull import print_color
+from gpx1.usefull import print_error
 
 def parse(file_input: str) -> gpx:
     """Parst das übegebene GPX File und gibt es als Objekt zurück
 
     Args:
-        file_input: GPX Datei, die geparst werden soll
+        file_input (str): GPX Datei, die geparst werden soll
 
-    Return:
+    Returns:
         gpx: geparste GPX-Daten und XML-Deklarationen
-    """
+    """ 
 
     gpx_input = gpx()
 
@@ -37,15 +37,16 @@ def parse(file_input: str) -> gpx:
         
         return gpx_input
     except Exception as e:
-        print_color("Error 100: Fehler beim parsen der GPX-Datei: " + e)
+        print_error("Error 100: Fehler beim parsen der GPX-Datei: " + e, True, True)
         sys.exit()
 
 def write_file(gpx_output: gpx, path: str) -> None:
     """Erstellt aus den übergebenen GPX-Informationen eine .gpx Datei
 
     Args:
-        gpx_output: zu speichernde GPX-Daten und XML-Deklarationen
-    """
+        gpx_output (gpx): zu speichernde GPX-Daten und XML-Deklarationen
+        path (str): Pfad und Name unter der die Datei ausgegeben werden soll
+    """    
     
     # Ausgabe des GPX-Files
     if gpx_output.standalone is None:
