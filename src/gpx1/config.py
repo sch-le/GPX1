@@ -9,7 +9,7 @@ Erstellt: 27.05.2024
 version = "V0.90"
 
 # Pfad und Name mit dem die Datei ausgegeben wird
-output_path = "output.gpx"
+#output_path = "output.gpx"
 
 class gpx:
     """Klasse zum Speichern von GPX-Daten und XML-Deklaration

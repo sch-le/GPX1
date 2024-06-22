@@ -9,7 +9,6 @@ from lxml import etree
 import re
 import sys
 
-from . import config
 from gpx1.config import gpx
 from gpx1.usefull import print_color
 
@@ -41,7 +40,7 @@ def parse(file_input: str) -> gpx:
         print_color("Error 100: Fehler beim parsen der GPX-Datei: " + e)
         sys.exit()
 
-def write_file(gpx_output: gpx) -> None:
+def write_file(gpx_output: gpx, path: str) -> None:
     """Erstellt aus den übergebenen GPX-Informationen eine .gpx Datei
 
     Args:
@@ -50,6 +49,6 @@ def write_file(gpx_output: gpx) -> None:
     
     # Ausgabe des GPX-Files
     if gpx_output.standalone is None:
-        gpx_output.etree.write(config.output_path, xml_declaration=True, encoding=gpx_output.encoding)
+        gpx_output.etree.write(path, xml_declaration=True, encoding=gpx_output.encoding)
     else:
-        gpx_output.etree.write(config.output_path, xml_declaration=True, encoding=gpx_output.encoding, standalone=gpx_output.standalone)
+        gpx_output.etree.write(path, xml_declaration=True, encoding=gpx_output.encoding, standalone=gpx_output.standalone)
