@@ -39,10 +39,8 @@ def save_path():
         title="Speicherort auswählen",
         defaultextension=".gpx",
         filetypes=[("GPX files", "*.gpx")]
-    )
-    
+    )   
     if filepath:
-        print_color(f"Dateipfad ausgewählt: {filepath}")
         return filepath
     else:
         print_color("Kein Speicherort ausgewählt.")

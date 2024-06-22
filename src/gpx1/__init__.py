@@ -142,8 +142,7 @@ def gpx_menu(input_gpx: gpx):
                         # Schreiben der fertigen Datei
                         parser.write_file(input_gpx, selected_path)    
                         print_color(f"Datei wurde unter {selected_path} gespeichert!")
-                    else:
-                        print_color("Speichern abgebrochen.")
+                        break
                 
                 elif auswahl == "0":
                     break
