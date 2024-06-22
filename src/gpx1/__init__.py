@@ -1,5 +1,7 @@
 """ __init__.py
 
+(c) PaFeLe²KyLuKa-Industries
+
 Beschreibung: Editor, mit dem GPX-Dateien bearbeitet werden können
 Autor: Pascal Köhnlein
 Erstellt: 19.05.2024

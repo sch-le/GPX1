@@ -1,5 +1,7 @@
 """ file_management.py
 
+(c) PaFeLe²KyLuKa-Industries
+
 Beschreibung: Erstellen eines Fensters zum auswählen und verwenden von GPX-Dateien unter verwendung von parser.py
 Autor: Lukas Reißmann
 Erstellt: 06.06.2024

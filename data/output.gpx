@@ -1,10 +1,10 @@
-<?xml version='1.0' encoding='ASCII'?>
+<?xml version='1.0' encoding='CP1252' standalone='yes'?>
 <gpx xmlns="http://www.topografix.com/GPX/1/1" creator="media-tours.de" version="1.1">
 <metadata>
     <link href="https://www.wegeundpunkte.de/tour.php?t=Moosbachtal-Satansbrocken-Neudahn_Wandern_0111">
       <text>T111_Moosbachtal-Satansbrocken-Neudahn . www.wegeundpunkte.de</text>
     </link>
-  </metadata>
+  <name>Wunschname</name><desc>Wunschbeschreibung</desc><author><name>Max Mustermann</name></author></metadata>
 
   <trk>
     <name>T111_Moosbachtal-Satansbrocken-Neudahn_Wandern</name>

@@ -1,5 +1,7 @@
 """ parser.py
 
+(c) PaFeLe²KyLuKa-Industries
+
 Beschreibung: Funktionen zum parsen und ausgeben von GPX-Dateien
 Autor: Leon Schuck
 Erstellt: 19.05.2024

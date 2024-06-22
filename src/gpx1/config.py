@@ -1,5 +1,7 @@
 """ config.py
 
+(c) PaFeLe²KyLuKa-Industries
+
 Beschreibung: verschiedene Konfigurationen
 Autor: Leon Schuck
 Erstellt: 27.05.2024
