@@ -7,7 +7,7 @@ Erstellt: 19.05.2024
 
 import sys
 
-from gpx1.config import gpx, version
+from gpx1.config import gpx, version, output_path
 from gpx1.usefull import input_type, print_color, cls, confirm
 from . import file_management
 from . import parser
@@ -149,7 +149,7 @@ def gpx_menu(input_gpx: gpx) -> None:
 
                 # Neuen Speicherort wählen
                 if auswahl == "1":
-                    selected_path = file_management.save_path()
+                    selected_path = output_path
                     if selected_path:
                         # Schreiben der fertigen Datei
                         parser.write_file(input_gpx, selected_path)    
