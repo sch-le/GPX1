@@ -134,7 +134,7 @@ def edit_name(new_name: str, input_gpx: gpx,) -> None:
     # Suchen des Elements metadata bzw. erstellen, falls es nicht existiert
     metadata = input_gpx.etree.find("{*}metadata")
     if metadata is None:
-        input_gpx.append(lxml.etree.Element("metadata"))
+        input_gpx.etree.getroot().append(lxml.etree.Element("metadata"))
         metadata = input_gpx.etree.find("{*}metadata")
         
     # Suchen des Child-Elements name bzw. erstellen, falls es nicht existiert
@@ -164,7 +164,7 @@ def edit_description(new_desc: str, input_gpx: gpx) -> None:
     # Suchen des Elements metadata bzw. erstellen, falls es nicht existiert
     metadata = input_gpx.etree.find("{*}metadata")
     if metadata is None:
-        input_gpx.append(lxml.etree.Element("metadata"))
+        input_gpx.etree.getroot().append(lxml.etree.Element("metadata"))
         metadata = input_gpx.etree.find("{*}metadata")
         
     # Suchen des Child-Elements desc bzw. erstellen, falls es nicht existiert
@@ -195,7 +195,7 @@ def edit_author(new_name: str, new_email: str, new_href: str, new_link_text: str
     # Suchen des Elements metadata bzw. erstellen, falls es nicht existiert
     metadata = input_gpx.etree.find("{*}metadata")
     if metadata is None:
-        input_gpx.append(lxml.etree.Element("metadata"))
+        input_gpx.etree.getroot().append(lxml.etree.Element("metadata"))
         metadata = input_gpx.etree.find("{*}metadata")
     
     # Suchen des Child-Elements author bzw. erstellen, falls es nicht existiert
